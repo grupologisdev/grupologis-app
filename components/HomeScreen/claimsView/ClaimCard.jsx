@@ -15,17 +15,20 @@ const ClaimCard = (props) => {
                         content={props.fecha}
                     />
                 </View>
-                <View style={styles.rightContent}>
-                    <Pressable
-                        onPress={() => {
-                            console.log(`Visualizar: ${props.radicado}`);
-                        }}
-                    >
-                        <View style={styles.actionButton("ghost")}>
-                            <AntDesign name="eye" size={18} color={colors.darkGray} />
-                        </View>
-                    </Pressable>
+                <View style={styles.leftBottomContent}>
+                    <Text>TODO: Estado del reclamo</Text>
                 </View>
+            </View>
+            <View style={styles.rightContent}>
+                <Pressable
+                    onPress={() => {
+                        console.log(`Visualizar: ${props.radicado}`);
+                    }}
+                >
+                    <View style={styles.actionButton("ghost")}>
+                        <AntDesign name="eye" size={18} color={colors.darkGray} />
+                    </View>
+                </Pressable>
             </View>
         </View>
     );
@@ -52,9 +55,10 @@ const styles = StyleSheet.create({
     rightContent: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-end",
         justifyContent: "space-around",
         width: "15%",
+        left: 90,
     },
     leftTopContent: {
         display: "flex",
