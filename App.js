@@ -5,6 +5,8 @@ import { useFonts } from "expo-font";
 
 // Import Views
 
+import EmployeeMaster from "./components/HomeScreen/EmployeeManagement/screens/EmployeeMaster";
+import ResumeView from "./components/HomeScreen/EmployeeManagement/screens/ResumeView";
 import BusinessEmployeeLogin from "./components/LoginScreen/BusinessEmployeeLogin";
 import BusinessEntry from "./components/LoginScreen/BusinessEntry";
 import CodeAuth from "./components/LoginScreen/CodeAuth";
@@ -14,7 +16,6 @@ import DownloadView from "./screens/DownloadView";
 import EmployeeManagement from "./screens/EmployeeManagement";
 import LoginScreen from "./screens/LoginScreen";
 import NewsView from "./screens/NewsView";
-import ResumeView from "./screens/ResumeView";
 import UserView from "./screens/UserView";
 
 // Import components
@@ -69,6 +70,7 @@ const HomeScreens = () => {
       <Tab.Screen name="EmployeeManagement" component={EmployeeManagement} />
       <Tab.Screen name="ClientsInvoices" component={ClientsInvoiceView} />
       <Tab.Screen name="ResumeView" component={ResumeView} />
+      <Tab.Screen name="EmployeeMaster" component={EmployeeMaster} />
     </Tab.Navigator>
   );
 };

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     ...getFontStyles(27, 0.5, 0.9),
   },
   descriptionText: {
-    ...getFontStyles(15, 0.5, 0.9),
+    ...getFontStyles(14, 0.5, 0.9),
     fontFamily: "Poppins-Light",
     color: colors.darkGray,
     flexWrap: "wrap",

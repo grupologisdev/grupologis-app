@@ -46,6 +46,12 @@ const SpecialCalendar = ({ placeholder, onChange, value }) => {
     });
 
     setSelectedDate(selectedDate.set("M", e));
+
+    let newDate = selectedDate._d;
+
+    const result = getDaysArray(newDate.getFullYear(), newDate.getMonth() + 1);
+
+    setDayOptions(result);
   };
   const changeYear = (e) => {
     setSelectedMonthYear({
@@ -54,6 +60,12 @@ const SpecialCalendar = ({ placeholder, onChange, value }) => {
     });
 
     setSelectedDate(selectedDate.set("y", e));
+
+    let newDate = selectedDate._d;
+
+    const result = getDaysArray(newDate.getFullYear(), newDate.getMonth() + 1);
+
+    setDayOptions(result);
   };
   const handleChangeDay = (day) => {
     if (!day.isSelectable) return;
@@ -145,7 +157,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     gap: 10,
-    height: 75,
+    height: 85,
     marginVertical: 10,
     marginLeft: 5,
   },

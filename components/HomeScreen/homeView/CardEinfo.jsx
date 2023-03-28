@@ -4,11 +4,10 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { colors, widthPercentageToPx } from "../../../utils";
 const CardEinfo = ({
   title,
-  inputText,
-  buttonText,
-  buttonIcon,
   onPressAction,
   handleGoBack,
+  handleChangeText,
+  showInput = true,
 }) => {
   return (
     <View style={styles.cardContainer}>
@@ -26,12 +25,13 @@ const CardEinfo = ({
         </Pressable>
         <Text style={styles.titleText}>{title}</Text>
       </View>
-      <Pressable onPress={onPressAction}>
+      {showInput && (
         <TextInput
           style={styles.titleContainer}
           placeholder="Ingresa la identificación"
+          onChangeText={(value) => handleChangeText(value)}
         ></TextInput>
-      </Pressable>
+      )}
     </View>
   );
 };
@@ -88,6 +88,5 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     marginRight: 30,
-    marginBottom: 10,
   },
 });

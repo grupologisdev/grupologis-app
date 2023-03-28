@@ -37,7 +37,8 @@ const EmployeeManagement = (props) => {
       case "hvida":
         navigation.navigate("ResumeView");
         break;
-
+      case "maestroe":
+        navigation.navigate("EmployeeMaster");
       default:
         break;
     }

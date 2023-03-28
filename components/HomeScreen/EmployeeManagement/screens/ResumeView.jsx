@@ -1,9 +1,9 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import CardEinfo from "../components/HomeScreen/homeView/CardEinfo";
-import ResumeList from "../components/HomeScreen/resumeView/ResumeList";
-import Layout from "../components/layout/Layout";
-import { heightPercentageToPx, widthPercentageToPx } from "../utils";
+import { heightPercentageToPx, widthPercentageToPx } from "../../../../utils";
+import Layout from "../../../layout/Layout";
+import CardEinfo from "../../homeView/CardEinfo";
+import ResumeList from "../../resumeView/ResumeList";
 
 const ResumeView = (props) => {
   const { navigation } = props;
