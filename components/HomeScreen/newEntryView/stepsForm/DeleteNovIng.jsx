@@ -20,29 +20,24 @@ const DeleteNovIng = (props) => {
     });
   };
   const deleteReg = async () => {
-    console.log("presiono ");
     const { id, emp, est } = infoDel;
     let path = "EliminarOrdenIngreso.php";
     path += `?empresa=${emp}&ID_oi=${id}`;
     path += `&estado=${est}`;
 
     const respApi = await getSer(path);
-    console.log("respApi", respApi);
     const { status, data } = respApi;
 
     if (status) {
       if (data.status) {
         showModal(true);
-        console.log("se elimino el registro correctamente");
         showToast("se elimino el registro correctamente", "success");
       } else {
         showModal(true);
-        console.log("error al eliminar el registro");
         showToast("error al eliminar el registro", "error");
       }
     } else {
       showModal(true);
-      console.log("error al eliminar el registro");
       showToast("error al eliminar el registro", "error");
     }
   };

@@ -44,7 +44,7 @@ const DownloadableCard = ({ title, desc, image, id }) => {
     const info = `Empresa=${empSel}&Cedula=${codEmp}`;
     const path = "usuario/getCertificadoLaboral.php";
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto === 1) {
@@ -77,9 +77,9 @@ const DownloadableCard = ({ title, desc, image, id }) => {
 
     const info = `Empresa=${empSel}&Cedula=${codEmp}&Anho=${date}`;
     const path = "usuario/getCertificadoRetencion.php";
-    console.log(info, path);
+
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto === 1) {
@@ -108,22 +108,41 @@ const DownloadableCard = ({ title, desc, image, id }) => {
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel;
     const codEmp = infoLog.codEmp;
-    const nit = 0;
+    const nit = "%";
 
     const info = `Empresa=${empSel}&CodEmpleado=${codEmp}&NitCliente=${nit}`;
-    const path = "usuario/getHojaDeVidaEmp.php";
+    const path = "usuario/getHojaDeVidaEmpleado.php";
 
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     const { status, data } = respApi;
     if (status) {
-      if (data.Correcto === 1) {
-        dowArchivo(data);
-      } else if (data.trim() == "VACIO") {
-        showToast("El documento no existe", "error");
-        setLoaderProg(false);
+      if (data.Correcto == 1 && data.Docs.length > 0) {
+        const { CodEmpleado, IdDocumento } = data.Docs[0];
+        let infoDes = `NitCliente=%&Empresa=${empSel.toUpperCase()}`;
+        infoDes += `&CodEmpleado=${CodEmpleado}&IdDocumento=${IdDocumento}`;
+        const pathDes = "usuario/getDownDoc.php";
+        const respApiDes = await fetchPost(pathDes, infoDes);
+
+        if (respApiDes.status) {
+          if (respApiDes.data.Correcto === 1) {
+            dowArchivo(respApiDes.data);
+          } else {
+            showToast("No se encontro documento", "error");
+            setLoaderProg(false);
+          }
+        } else {
+          if (data == "limitExe") {
+            showToast("El servicio demoro mas de lo normal", "error");
+            setLoaderProg(false);
+            setReload(true);
+          } else {
+            showToast("Error en el servidor", "error");
+            setLoaderProg(false);
+          }
+        }
       } else {
-        showToast("Error en el servidor", "error");
+        showToast("No se encontro documento", "error");
         setLoaderProg(false);
       }
     } else {
@@ -150,7 +169,7 @@ const DownloadableCard = ({ title, desc, image, id }) => {
     const path = "usuario/getCapacitacion.php";
 
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto === 1) {
@@ -195,9 +214,9 @@ const DownloadableCard = ({ title, desc, image, id }) => {
           `empresaId=${empSel}&identificacionId=${codEmp}&anho=${val.year}&mes=${month}`
         : // es 2
           `Empresa=${empSel}&NitCliente=${codEmp}&Anho=${val.year}&Mes=${month}`;
-    console.log(path, info);
+
     const respApi = await fetchPost(path, info);
-    console.log("respuesta", respApi);
+
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto === 1) {
@@ -240,7 +259,7 @@ const DownloadableCard = ({ title, desc, image, id }) => {
 
     const respApi = await fetchPost(path, info);
     setShowForm("");
-    console.log(respApi);
+
     const { status, data } = respApi;
     if (status) {
       const data = respApi.data;
@@ -273,7 +292,7 @@ const DownloadableCard = ({ title, desc, image, id }) => {
     } else {
       archDes = await downloadArchivoIOS(data.file, data.mimetype, data.name);
     }
-    console.log("archDes", archDes);
+
     if (archDes) {
       showToast("Listo", "success");
       setLoaderProg(false);
@@ -292,7 +311,6 @@ const DownloadableCard = ({ title, desc, image, id }) => {
   useEffect(() => {
     const idSel = showForm;
     if (idSel != "") {
-      console.log("idSel", idSel);
       switch (idSel) {
         case "laboralCertificate":
           setShowForm("");

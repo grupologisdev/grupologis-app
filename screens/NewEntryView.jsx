@@ -55,8 +55,6 @@ const NewEntryView = (props) => {
   };
 
   const closeAfterConfirm = async (info) => {
-    console.log("info Servi", info);
-
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel.trim().toUpperCase();
@@ -122,11 +120,11 @@ const NewEntryView = (props) => {
 
     body = JSON.stringify(body);
     const path = "CrearOrdenIngreso.php";
-    console.log(body, path);
+
     const respApi = await postSer(path, body);
     if (respApi.status) {
       const { data } = respApi;
-      console.log("data", data);
+
       if (data.status) {
         setShowForm(false);
 
@@ -135,14 +133,11 @@ const NewEntryView = (props) => {
           setShowForm(true);
           getNovedadesAll();
         }, 3000);
-        console.log("Orden de ingreso creada", "success");
       } else {
         showToast("Error en el servidor", "error");
-        console.log("Error en el servidor", "error");
       }
     } else {
       showToast("Ocurrio un error en el servidor", "error");
-      console.log("Ocurrio un error en el servidor", "error");
     }
   };
 
@@ -167,7 +162,7 @@ const NewEntryView = (props) => {
       }
     } else {
       showToast("Error al buscar las novedades", "error");
-      console.log("Error al buscar las novedades", "error");
+
       setListNoved([]);
       setLoader(false);
     }
@@ -175,19 +170,15 @@ const NewEntryView = (props) => {
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    console.log("refreshing", refreshing);
+
     await getNovedadesAll();
     setRefreshing(false);
-    console.log("refreshing", refreshing);
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("novedad ingreso focused");
       getNovedadesAll();
-      return () => {
-        console.log("novedad ingreso unfocused");
-      };
+      return () => {};
     }, [])
   );
 

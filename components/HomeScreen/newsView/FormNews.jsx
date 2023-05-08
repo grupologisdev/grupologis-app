@@ -12,20 +12,31 @@ import {
 import ConfirmActivityContent from "../../common/ConfirmActivityContent";
 import NewInfoForm from "./components/NewInfoForm";
 import SelectType from "./components/SelectType";
+import Toast from "react-native-toast-message";
 
 const FormNew = ({ closeModal }) => {
   const [formStep, setFormStep] = useState(1);
   const { newForm, agregarNovedad } = useContext(newsContext);
 
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  };
+
   const handleConfirmForm = () => {
     if (!newForm.type || !newForm.startDate || !newForm.endDate) {
-      console.log("todos los campos son requeridos");
+      showToast("todos los campos son requeridos", "error");
       return;
     }
 
     if (newForm.endDate < newForm.startDate) {
-      console.log(
-        "La fecha de finalización debe ser mayor a la fecha de inicio"
+      showToast(
+        "La fecha de finalización debe ser mayor a la de inicio",
+        "error"
       );
       return;
     }

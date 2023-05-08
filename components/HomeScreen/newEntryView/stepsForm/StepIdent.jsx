@@ -11,7 +11,6 @@ const StepIdent = ({ formData, onComplete }) => {
 
   const handleIdentificationChange = (text) => {
     const parsedText = parseInt(text, 10);
-    console.log(parsedText);
     if (isNaN(parsedText)) {
       setIdentification(0);
     } else {

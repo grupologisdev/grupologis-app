@@ -54,7 +54,6 @@ class Formulario extends Component {
 
   handleSelection = () => {
     const state = this.state;
-    console.log("state handleSelection", state);
     this.props.onSelectionChange({
       auxBonif: {
         label: state.selAuxBon,

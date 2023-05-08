@@ -13,25 +13,20 @@ const ResumeView = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("useCallback useFocusEffect handleInputChange");
       handleInputChange("");
-      return () => {
-        console.log("useCallback unfocused");
-      };
+      return () => {};
     }, [])
   );
 
   const handleInputChange = (text) => {
-    console.log("handleInputChange", text);
     setIdentif(text);
   };
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    console.log("refreshing", refreshing);
+
     handleInputChange("");
     setRefreshing(false);
-    console.log("refreshing", refreshing);
   }, []);
 
   return (

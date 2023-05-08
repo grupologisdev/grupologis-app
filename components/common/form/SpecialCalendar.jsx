@@ -9,14 +9,11 @@ import MonthYearPicker from "./MonthYearPicker";
 import Toast from "react-native-toast-message";
 
 let getDaysArray = function (year, month, day) {
-  console.log("getDaysArray", year, month);
   let monthIndex = month - 1;
   let names = ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"];
   // const newDay = typeof day == "string" ? 1 : day;
   let newDay = isNaN(day) || day < 1 || day > 31 ? 1 : day;
-  console.log("day", newDay);
   let date = new Date(year, monthIndex, newDay);
-  console.log("date.getDay()", date.getDay());
   let result = [];
   while (date.getMonth() == monthIndex) {
     result.push({
@@ -42,7 +39,6 @@ const SpecialCalendar = ({ placeholder, onChange, value, dia = "" }) => {
 
   useEffect(() => {
     const result = getDaysArray(value.getFullYear(), value.getMonth() + 1, dia);
-    console.log("resltado", result);
     setDayOptions(result);
   }, []);
 
@@ -62,7 +58,6 @@ const SpecialCalendar = ({ placeholder, onChange, value, dia = "" }) => {
     });
     setSelectedDate(selectedDate.set("M", mon));
     const result = getDaysArray(selectedMonthYear.year, (mon += 1), diaAdd);
-    console.log("resultado sss", result);
     setDayOptions(result);
   };
 
@@ -73,29 +68,24 @@ const SpecialCalendar = ({ placeholder, onChange, value, dia = "" }) => {
     });
     setSelectedDate(selectedDate.set("y", yea));
     const result = getDaysArray(yea, (selectedMonthYear.month += 1), diaAdd);
-    console.log("resultado sss", result);
     setDayOptions(result);
   };
 
   const handleChangeMonth = (e) => {
-    console.log("cambio mes", e);
     if (typeof dia != "string") {
       if (
         fechaActual.getFullYear() == selectedMonthYear.year &&
         fechaActual.getMonth() == e
       ) {
-        console.log("la fecha es igual a la de hoy");
         importDatosMon(e, dia);
       } else if (
         fechaActual.getFullYear() >= selectedMonthYear.year &&
         fechaActual.getMonth() < e
       ) {
-        console.log("la fecha es mayor");
         importDatosMon(e, "");
       } else {
-        console.log("la fecha es menor");
         const monthAct = fechaActual.getMonth();
-        console.log("mes actual", monthAct);
+
         importDatosMon(monthAct, dia);
         showToast("Debe selecionar una fecha mayor", "error");
       }
@@ -105,27 +95,22 @@ const SpecialCalendar = ({ placeholder, onChange, value, dia = "" }) => {
   };
 
   const changeYear = (e) => {
-    console.log("changeYear", e);
     if (typeof dia != "string") {
       if (
         fechaActual.getFullYear() == e &&
         fechaActual.getMonth() == selectedMonthYear.month
       ) {
-        console.log("la fecha es igual a la de hoy");
         importDatosYea(e, dia);
       } else if (
         fechaActual.getFullYear() <= e &&
         fechaActual.getMonth() < selectedMonthYear.month
       ) {
-        console.log("la fecha es mayor");
         importDatosYea(e, "");
       } else {
-        console.log("la fecha es menor");
         const monthAct = fechaActual.getMonth();
-        console.log("mesActual", monthAct);
-        console.log("mesActual2", selectedMonthYear.month);
+
         const yearAct = fechaActual.getFullYear();
-        console.log("año actual", yearAct);
+
         showToast("Debe selecionar una fecha mayor", "error");
         const addDay = monthAct == selectedMonthYear.month ? dia : "";
         importDatosYea(yearAct, addDay);
@@ -148,7 +133,7 @@ const SpecialCalendar = ({ placeholder, onChange, value, dia = "" }) => {
       month: month,
       year: selectedMonthYear.year,
     };
-    console.log("selectedDay", selectedDay);
+
     // setSelectedDate(selectedDate.set("D", dayNumber));
     setSelectedDay(day.day);
     onChange(selectedDay);

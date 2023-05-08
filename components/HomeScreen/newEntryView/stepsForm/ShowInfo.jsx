@@ -108,7 +108,7 @@ const ShowInfo = ({ modul, info }) => {
           {modul == "Quejas" && (
             <>
               <Text>Respuesta</Text>
-              <Text>{info.Respuesta.trim()}</Text>{" "}
+              <Text>{info.Respuesta.trim()}</Text>
             </>
           )}
         </View>

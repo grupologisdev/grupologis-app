@@ -19,8 +19,8 @@ import LoaderItemSwitch from "../common/loaders/LoaderItemSwitch";
 
 const BusinessEmployeeLogin = ({ navigation, route }) => {
   const { type } = route.params;
-  const [identification, setIdentification] = useState(0);
-  const [phone, setPhone] = useState(0);
+  const [identification, setIdentification] = useState("");
+  const [phone, setPhone] = useState("");
   const [loader, setLoader] = useState(false);
   const [reintentar, setReintentar] = useState(false);
 
@@ -47,10 +47,9 @@ const BusinessEmployeeLogin = ({ navigation, route }) => {
   };
 
   const submitForm = async () => {
-    if (identification != 0 && phone != 0) {
+    if (identification != "" && phone != "") {
       if (!validatePhone(phone)) {
         showToast("El celular es incorrecto", "error");
-        console.log("El celular es incorrecto");
       } else {
         setLoader(true);
         setReintentar(false);
@@ -62,7 +61,7 @@ const BusinessEmployeeLogin = ({ navigation, route }) => {
         const path = "usuario/saveUsuarioNew.php";
         const respApi = await fetchPost(path, body);
         const { status, data } = respApi;
-        console.log("respApi", respApi);
+
         if (status) {
           const data = respApi.data;
           if (typeof data == "object") {
@@ -74,18 +73,15 @@ const BusinessEmployeeLogin = ({ navigation, route }) => {
           } else {
             setLoader(false);
             showToast("El usuario o celular no son validos", "error");
-            console.log("El usuario o celular no son validos");
           }
         } else {
           if (data == "limitExe") {
             setLoader(false);
             showToast("El servicio demoro mas de lo normal", "error");
             setReintentar(true);
-            console.log("El servicio demoro mas de lo normal");
           } else {
             setLoader(false);
             showToast("ocurrio un error en el sistema", "error");
-            console.log("ocurrio un error en el sistema");
           }
         }
       }

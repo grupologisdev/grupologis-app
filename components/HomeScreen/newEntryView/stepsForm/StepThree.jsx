@@ -19,10 +19,17 @@ const StepThree = ({ formData, onComplete, completed }) => {
 
   const toggleDotacion = () => setDotacion((previousState) => !previousState);
 
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  };
+
   useEffect(() => {
-    console.log("completed", completed);
     if (completed) {
-      console.log("formData", formData);
       const getServiciosSel = async () => {
         let infoLog = await AsyncStorage.getItem("logged");
         infoLog = JSON.parse(infoLog);
@@ -44,12 +51,12 @@ const StepThree = ({ formData, onComplete, completed }) => {
               setListCenCost(respCenCos.data.centro_costos);
               respAuxBon.data.Correcto === 1
                 ? setListAuxBon(respAuxBon.data.novedades)
-                : console.log("error al buscar Aux / bonific");
+                : showToast("Error al buscar Aux / bonific", "error");
             } else {
-              console.log("error al buscar Aux / bonific");
+              showToast("Error al buscar Aux / bonific", "error");
             }
           } else {
-            console.log("error al buscar listado de cargos");
+            showToast("Error al listado de cargos", "error");
           }
         }
       };
@@ -61,29 +68,16 @@ const StepThree = ({ formData, onComplete, completed }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        console.log("novedad ingreso stepone unfocused");
         setLoader(false);
       };
     }, [])
   );
 
   const setSeleccForm = (selec) => {
-    console.log("selecciones formulario step 3", selec);
     setValue({ ...value, ...selec });
   };
 
-  const showToast = (smg, type) => {
-    Toast.show({
-      type: type, //"success", error
-      text1: smg,
-      position: "bottom",
-      visibilityTime: 2000,
-    });
-  };
-
   const handlePress = () => {
-    console.log("dotacion", dotacion);
-    console.log("resultados", value);
     if (value) {
       const {
         auxBonif,
@@ -97,7 +91,7 @@ const StepThree = ({ formData, onComplete, completed }) => {
         valorSalario,
         zapatos,
       } = value;
-      console.log("entro");
+
       if (
         auxBonif.label == "Aux / bonificaciones" ||
         centCostos.label == "Centro de costos" ||
@@ -106,7 +100,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
         valorSalario.label == ""
       ) {
         showToast("Por favor, rellene todos los campos", "error");
-        console.log("Por favor, rellene todos los campos", "error");
       } else if (
         dotacion &&
         (!zapatos ||
@@ -121,9 +114,7 @@ const StepThree = ({ formData, onComplete, completed }) => {
           camisa.label == "Talla Camisa")
       ) {
         showToast("Por favor, rellene todos los campos", "error");
-        console.log("Por favor, rellene todos los campos", "error");
       } else {
-        console.log("enviar todo");
         setLoader(true);
         onComplete({
           stepThreeData: {
@@ -134,7 +125,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
       }
     } else {
       showToast("Por favor, rellene todos los campos", "error");
-      console.log("Por favor, rellene todos los campos", "error");
     }
   };
 

@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 import listDep from "../../../../../utils/json/depart.json";
 import listMun from "../../../../../utils/json/municip.json";
 import { colors } from "../../../../../utils";
+import Toast from "react-native-toast-message";
 
 class Formulario extends Component {
   constructor(props) {
@@ -24,6 +25,15 @@ class Formulario extends Component {
       modalOptions: [],
       modalSelect: "",
     };
+  }
+
+  showToast(smg, type) {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,19 +50,15 @@ class Formulario extends Component {
   }
 
   handleSelection = (dep, mun) => {
-    console.log("onSelectionChange", dep, mun);
     this.props.onSelectionChange(dep, mun);
   };
 
   openModal = (select) => {
-    console.log("abrir modal dep ciu", select);
-    console.log("state", this.state.select1);
-    console.log("state", this.props);
     let modalOptions = [];
     switch (select) {
       case "select1":
         modalOptions = listDep.departamentos;
-        console.log(modalOptions);
+
         this.setState({
           modalVisible: true,
           modalOptions,
@@ -69,7 +75,7 @@ class Formulario extends Component {
             modalSelect: select,
           });
         } else {
-          console.log("Seleccione un departamento");
+          this.showToast("Seleccione un departamento", "error");
         }
         break;
       default:
@@ -153,7 +159,6 @@ class Formulario extends Component {
                         optionAb: null,
                         modalSelect: "",
                       });
-                      console.log("props", this.props);
                       this.handleSelection(this.state.select1, option.nombre);
                       // this.props.selCountry = {
                       //   this.props.selCountry.dep: this.state.select1,

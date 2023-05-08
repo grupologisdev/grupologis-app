@@ -1,19 +1,76 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import React, { useContext } from "react";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { colors } from "../../../utils";
 import CardElement from "../newsView/components/CardElement";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  downloadArchivoAndroid,
+  downloadArchivoIOS,
+  fetchPost,
+} from "../../../utils/functions";
+import LoaderProgContext from "../../../context/loader/LoaderProgContext";
 
 const ResumeCard = (props) => {
-  const showToast = () => {
-    Toast.show({
-      type: "success",
-      text1: "Descarga Completada",
+  const { setLoaderProg } = useContext(LoaderProgContext);
 
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
       position: "bottom",
       visibilityTime: 2000,
     });
+  };
+
+  const dowArchivo = async (data) => {
+    let archDes;
+    if (Platform.OS === "android") {
+      archDes = await downloadArchivoAndroid(
+        data.file,
+        data.mimetype,
+        data.name
+      );
+    } else {
+      archDes = await downloadArchivoIOS(data.file, data.mimetype, data.name);
+    }
+
+    if (archDes) {
+      showToast("Listo", "success");
+      setLoaderProg(false);
+    } else {
+      showToast("No se genero un archivo", "error");
+      setLoaderProg(false);
+    }
+  };
+
+  const dowHVida = async () => {
+    setLoaderProg(true);
+    let infoLog = await AsyncStorage.getItem("logged");
+    infoLog = JSON.parse(infoLog);
+    const empSel = infoLog.empSel;
+    const codEmp = infoLog.codEmp;
+    console.log("props", props);
+    const info = `NitCliente=${codEmp}&Empresa=${empSel.toUpperCase()}&CodEmpleado=%&IdDocumento=${
+      props.IdDocumento
+    }`;
+    const path = "usuario/getDownDoc.php";
+    console.log("info", info);
+    const respApi = await fetchPost(path, info);
+    console.log("respApi", respApi);
+    const { status, data } = respApi;
+    if (status) {
+      if (data.Correcto === 1) {
+        dowArchivo(data);
+      } else {
+        showToast("Error en el servidor", "error");
+        setLoaderProg(false);
+      }
+    } else {
+      showToast("Error en el servidor", "error");
+      setLoaderProg(false);
+    }
   };
   return (
     <View style={styles.cardContainer}>
@@ -29,7 +86,7 @@ const ResumeCard = (props) => {
       </View>
 
       <View style={styles.rightContent}>
-        <Pressable onPress={showToast}>
+        <Pressable onPress={() => dowHVida()}>
           <View style={styles.actionButton("ghost")}>
             <AntDesign name="download" size={18} color={colors.darkGray} />
           </View>

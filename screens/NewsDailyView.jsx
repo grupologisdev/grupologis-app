@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   View,
+  RefreshControl,
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ const NewsDailyView = (props) => {
   const [listNotic, setListNotic] = useState([]);
   const [pagAct, setPagAct] = useState(1);
   const [cantInfo, setCantInfo] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
   const urlImg = "https://appgrupologis.com/app/managers/usuario/";
 
   const showToast = (smg, type) => {
@@ -78,6 +80,12 @@ const NewsDailyView = (props) => {
     }
   };
 
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await getNews();
+    setRefreshing(false);
+  }, []);
+
   return (
     <Layout props={{ ...props }}>
       <CardEinfo
@@ -87,7 +95,12 @@ const NewsDailyView = (props) => {
         handleGoBack={() => navigation.navigate("DownloadView")}
       />
       {!loaderSwi ? (
-        <ScrollView styles={styles.inputContainer}>
+        <ScrollView
+          styles={styles.inputContainer}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           {listNotic.map((e, i) => (
             <NewsDailyCard
               key={i}

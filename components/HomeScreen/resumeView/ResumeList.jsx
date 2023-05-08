@@ -43,40 +43,32 @@ const ResumeList = (props) => {
       setPrevIdenHoja(idenHoja); // Actualiza el valor anterior
 
       if (idenHoja == "") {
-        console.log("enviar");
         buscar = true;
         setLoading(true);
         setCodEmpleado("%");
       } else if (idenHoja.length > 5) {
-        console.log("mayor a 5");
         buscar = true;
         setLoading(true);
 
         setCodEmpleado(idenHoja);
       } else {
-        console.log("entro else");
-        console.log("entro else2");
         buscar = false;
         setCodEmpleado(null);
-        console.log("else", codEmpleado);
       }
     }
 
     if (buscar) {
-      console.log("buscar", buscar);
       if (codEmpleado != null) {
-        console.log("useeffect - codEmpleado", codEmpleado);
         const getHojaVida = async (codEmpleado) => {
-          console.log("codEmpleado2", codEmpleado);
           let infoLog = await AsyncStorage.getItem("logged");
           infoLog = JSON.parse(infoLog);
           const empSel = infoLog.empSel;
           const codEmp = infoLog.codEmp;
           const info = `NitCliente=${codEmp}&Empresa=${empSel}&CodEmpleado=${codEmpleado}`;
-          console.log("info", info);
+
           const path = "usuario/getDocs.php";
           const respApi = await fetchPost(path, info);
-          console.log("respApi", respApi);
+
           const { status, data } = respApi;
           if (status) {
             if (data.Docs.length > 0) {
@@ -88,7 +80,7 @@ const ResumeList = (props) => {
             }
           } else {
             showToast("Error al buscar las hojas de vida", "error");
-            console.log("Error al buscar las hojas de vida", "error");
+
             setLoading(false);
           }
         };

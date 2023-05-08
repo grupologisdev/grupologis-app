@@ -38,7 +38,6 @@ const newsDailyHome = ({ closeM }) => {
   };
 
   const getNews = async () => {
-    console.log("entro funcion noticias");
     setLoaderSwi(true);
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
@@ -47,7 +46,6 @@ const newsDailyHome = ({ closeM }) => {
     const infoType = infoLog.type === "employee" ? 1 : 2;
     let path = "noticia/getNoticiasHabilitadas.php";
     path += `?empresaId=${empSel}&tipousuarioId=${infoType}`;
-    console.log("noticias", path);
     const respApi = await get(path);
     const { status, data } = respApi;
     if (status) {
@@ -62,7 +60,6 @@ const newsDailyHome = ({ closeM }) => {
       }
     } else {
       showToast("Error al obtener noticias", "error");
-      console.log("Error al obtener noticias", "error");
       setListNotic([]);
       setLoaderSwi(false);
     }
@@ -75,13 +72,15 @@ const newsDailyHome = ({ closeM }) => {
       </View>
       <View styles={styles.inputContainer}>
         {!loaderSwi ? (
-          listNotic.map((e, i) => (
-            <Pressable onPress={() => navigation.navigate("NewsDailyView")}>
+          listNotic.map((e, ind) => (
+            <Pressable
+              key={`noticia-${ind}`}
+              onPress={() => navigation.navigate("NewsDailyView")}
+            >
               <NewsDailyHomeCard
-                key={i}
                 descNot={e.mensaje}
                 titleNot={e.titulo}
-                id={i}
+                id={`noticia-${ind}`}
                 imageNot={urlImg + e.ruta}
               />
             </Pressable>

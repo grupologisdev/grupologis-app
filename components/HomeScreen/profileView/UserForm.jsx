@@ -7,7 +7,6 @@ import FormuBussines from "../../LoginScreen/FormBussinessEntry/FormBussinesEntr
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UserForm = ({ userData, navigation, handleChange, handleUpdateUser }) => {
-  console.log("userData", userData);
   // undefined;
   const estadoCiv = [
     [
@@ -22,7 +21,6 @@ const UserForm = ({ userData, navigation, handleChange, handleUpdateUser }) => {
   ];
 
   const closeApp = async () => {
-    console.log("cerrar sesion");
     try {
       // borrar todos los datos del almacenamiento local
       await AsyncStorage.clear();

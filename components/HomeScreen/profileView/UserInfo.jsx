@@ -14,8 +14,7 @@ import {
 
 const UserInfo = (props) => {
   const { userData } = props;
-  console.log("userData info", userData);
-  console.log("userData info");
+
   return (
     <View style={styles.userInfoContainer}>
       {typeof userData.foto == "object" ? (

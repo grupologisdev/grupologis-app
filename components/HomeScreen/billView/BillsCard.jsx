@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useContext } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { colors } from "../../../utils";
@@ -10,8 +10,11 @@ import {
   downloadArchivoIOS,
   fetchPost,
 } from "../../../utils/functions";
+import LoaderProgContext from "../../../context/loader/LoaderProgContext";
 
 const BillsCard = (props) => {
+  const { setLoaderProg } = useContext(LoaderProgContext);
+
   const showToast = (smg, type) => {
     Toast.show({
       type: type, //"success", error
@@ -32,17 +35,20 @@ const BillsCard = (props) => {
     } else {
       archDes = await downloadArchivoIOS(data.file, data.mimetype, data.name);
     }
-    console.log("archDes", archDes);
+
     if (archDes) {
-      showToast("Descarga Completada", "success");
+      showToast("Listo", "success");
+      setLoaderProg(false);
     } else {
       showToast("Error al generar el archivo", "error");
+      setLoaderProg(false);
     }
   };
 
   const downloadBill = async (infoBill) => {
+    setLoaderProg(true);
     const [doc, type] = infoBill;
-    console.log(doc, type);
+
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel;
@@ -52,7 +58,7 @@ const BillsCard = (props) => {
     const path = ["usuario/getReporteFact.php", "usuario/getSoporteFact.php"];
 
     const respApi = await fetchPost(path[type], info);
-    console.log(respApi);
+
     if (respApi.status) {
       const data = respApi.data;
       if (data.Correcto === 1) {
@@ -60,9 +66,11 @@ const BillsCard = (props) => {
         dowArchivo(data);
       } else {
         showToast("Error en el servidor", "error");
+        setLoaderProg(false);
       }
     } else {
       showToast("Error en el servidor", "error");
+      setLoaderProg(false);
     }
   };
 

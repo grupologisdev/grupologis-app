@@ -7,7 +7,6 @@ const StepFour = ({ formData, onComplete, completed }) => {
   //   onComplete({ stepOneData: value });
   // };
   if (completed) {
-    console.log("formData", formData);
     const { stepOneData, stepTwoData, stepThreeData } = formData;
     return (
       <View style={styles.containerResume}>

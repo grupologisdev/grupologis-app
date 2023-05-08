@@ -28,14 +28,13 @@ const ClientsInvoiceView = ({ props }) => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     setAllBillsList([null]);
   }, []);
 
   const handleSearchBill = async (val) => {
     setModal(false);
     setLoaderProg(true);
-    console.log("handleSearchBill");
+
     let { month, year } = val;
     month += 1;
     let infoLog = await AsyncStorage.getItem("logged");
@@ -45,13 +44,12 @@ const ClientsInvoiceView = ({ props }) => {
 
     const info = `Empresa=${empSel}&NitCliente=${codEmp}&Anho=${year}&Mes=${month}`;
     const path = "usuario/getFacturasClienteEmpresa.php";
-    console.log(info, path);
+
     const respApi = await fetchPost(path, info);
-    console.log("respApi", respApi);
+
     if (respApi.status) {
       const data = respApi.data;
       if (data != "ERROR") {
-        console.log(typeof data);
         if (typeof data == "object") {
           setAllBillsList(data);
           setLoaderProg(false);
@@ -64,7 +62,6 @@ const ClientsInvoiceView = ({ props }) => {
       message("Error del servidor", "error");
       setLoaderProg(false);
     }
-    console.log("allBillsList", allBillsList);
   };
 
   return (

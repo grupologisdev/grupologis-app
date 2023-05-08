@@ -3,7 +3,6 @@ import { TouchableOpacity, View } from "react-native";
 
 const Pagination = (props) => {
   const { pagAct, cantInfo, changeOpt } = props;
-  console.log(pagAct, cantInfo, changeOpt);
   return (
     <View style={styles.pagination}>
       {cantInfo != 0 && (

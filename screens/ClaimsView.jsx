@@ -57,12 +57,12 @@ const Claim = (props) => {
     const codEmp = infoLog.codEmp;
 
     const info = `Empresa=${empSel}&CodEmpleado=${codEmp}`;
-    console.log("info", info);
+
     const path = "usuario/getListadoQuejas.php";
     const respApi = await fetchPost(path, info);
     if (respApi.status) {
       const data = respApi.data;
-      console.log("data", data);
+
       if (data.Correcto === 1) {
         if (data.Programa != undefined && data.Programa.length > 0) {
           const lis = data.Programa.sort(comparar);
@@ -73,22 +73,19 @@ const Claim = (props) => {
           setLoader(false);
         }
       } else {
-        console.log("error en el servidor");
+        showToast("error en el servidor", "error");
         setLoader(false);
       }
     } else {
-      console.log("error en el servidor");
+      showToast("error en el servidor", "error");
       setLoader(false);
     }
   };
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("quejas focused");
       getQuejas();
-      return () => {
-        console.log("quejas unfocused");
-      };
+      return () => {};
     }, [])
   );
 
@@ -96,7 +93,7 @@ const Claim = (props) => {
     const info = `idQuejas=${idQueja}&tipousuarioId=${tipo}&IdUsuario=${empl}`;
     const path = "usuario/SendMailQuejas.php";
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     if (respApi.status) {
       const data = respApi.data;
       if (data === "TRUE") {
@@ -108,13 +105,13 @@ const Claim = (props) => {
         }, 3000);
       } else {
         setModal(false);
-        console.log("Error al enviar el correo electronico");
+
         showToast("Error al enviar el correo electronico", "error");
         setLoaderProg(false);
       }
     } else {
       setModal(false);
-      console.log("error en el servidor");
+
       showToast("Error al enviar el correo electronico", "error");
       setLoaderProg(false);
     }
@@ -131,13 +128,13 @@ const Claim = (props) => {
     const info = `Asunto=${infoPqr.asunto}&Detalle=${infoPqr.description}&Empresa=${empSel}&IdUsuario=${codEmp}&tipousuarioId=${typeCli}`;
     const path = "usuario/getQuejas.php";
     const respApi = await fetchPost(path, info);
-    console.log(respApi);
+
     if (respApi.status) {
       const data = respApi.data;
       if (data.Correcto === 1) {
         if (data.Msg === "Usuario no Encontrado") {
           setModal(false);
-          console.log("El usuario no existe");
+
           showToast("El usuario no existe", "error");
           setLoaderProg(false);
         } else {
@@ -145,13 +142,13 @@ const Claim = (props) => {
         }
       } else {
         setModal(false);
-        console.log("Error del servidor");
+
         showToast("Error en el servidor", "error");
         setLoaderProg(false);
       }
     } else {
       setModal(false);
-      console.log("Error del servidor");
+
       showToast("Error en el servidor", "error");
       setLoaderProg(false);
     }
@@ -159,10 +156,9 @@ const Claim = (props) => {
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    console.log("refreshing", refreshing);
+
     await getQuejas();
     setRefreshing(false);
-    console.log("refreshing", refreshing);
   }, []);
 
   return (

@@ -22,7 +22,6 @@ const UserView = (props) => {
       const userDataJSON = await AsyncStorage.getItem("logged");
       if (userDataJSON !== null) {
         const userData = JSON.parse(userDataJSON);
-        console.log("userData", userData);
         setDataUs(userData);
         setLoaderComp(false);
       }
@@ -34,13 +33,10 @@ const UserView = (props) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("entro deeesss");
       setLoaderComp(true);
       getUserDataFromAsyncStorage();
       //
-      return () => {
-        console.log("user unfocused");
-      };
+      return () => {};
     }, [])
   );
 
@@ -54,7 +50,6 @@ const UserView = (props) => {
   };
 
   const handleChangeInput = (field, value) => {
-    console.log("handleChangeInput", field, value);
     setDataUs({
       ...dataUs,
       [field]: value,
@@ -63,7 +58,6 @@ const UserView = (props) => {
 
   const handleUpdateUser = async () => {
     try {
-      console.log("update info", dataUs);
       let infoLog = await AsyncStorage.getItem("logged");
       infoLog = JSON.parse(infoLog);
 
@@ -82,23 +76,20 @@ const UserView = (props) => {
         info += `&Email=${dataUs.Correo.trim()}&Telefono=${dataUs.Telefono.trim()}`;
       }
 
-      console.log(info, path);
       const respApi = await fetchPost(path, info);
-      console.log("respApi", respApi);
+
       const { status, data } = respApi;
       if (status) {
         if (data == "Perfil actualizado correctamente") {
           showToast("Perfil actualizado correctamente", "success");
-          console.log("Perfil actualizado correctamente", "success");
+
           await updateUser(dataUs);
           await AsyncStorage.setItem("logged", JSON.stringify(dataUs));
         } else {
           showToast("Ocurrio un error al actualizar", "error");
-          console.log("Ocurrio un error al actualizar", "error");
         }
       } else {
         showToast("Ocurrio un error en el servidor", "error");
-        console.log("Ocurrio un error en el servidor", "error");
       }
     } catch (error) {
       console.log(error);

@@ -11,6 +11,7 @@ import {
 } from "../../../utils";
 import GLButton from "../../common/buttons/GLButton";
 import FormStep from "../../common/form/FormStep";
+import Toast from "react-native-toast-message";
 import MonthYearPicker from "../../common/form/MonthYearPicker";
 
 const FormBillsModal = ({ closeModal, onConfirm }) => {
@@ -28,6 +29,15 @@ const FormBillsModal = ({ closeModal, onConfirm }) => {
   const [showMonthSelector, setShowMonthSelector] = useState(false);
   const [hasChangedMonth, setHasChangedMonth] = useState(false);
   const [hasChangedYear, setHasChangedYear] = useState(false);
+
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  };
 
   const handleChangeMonth = (e) => {
     setPeriod({
@@ -58,9 +68,8 @@ const FormBillsModal = ({ closeModal, onConfirm }) => {
   };
 
   const validInfo = () => {
-    console.log(hasChangedYear, hasChangedMonth);
     if (!hasChangedYear || !hasChangedMonth) {
-      console.log("Seleccione los datos");
+      showToast("Seleccione los datos", "error");
     } else {
       onConfirm(values);
     }

@@ -1,9 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as ScreenOrientation from "expo-screen-orientation";
 import { useFonts } from "expo-font";
 
 import { PermissionsAndroid, KeyboardAvoidingView } from "react-native";
+import * as MediaLibrary from "expo-media-library";
+import * as Permissions from "expo-permissions";
 
 // Import Views
 
@@ -46,7 +49,7 @@ async function getMediaLibraryPermission() {
   const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
   console.log("status al", status);
   if (status !== "granted") {
-    alert("Se requiere permiso para acceder el almacenamiento");
+    alert("Se requiere permiso para acceder la biblioteca multimedia");
   }
 }
 async function requestStoragePermission() {
@@ -125,6 +128,7 @@ export default function App() {
   useEffect(() => {
     getMediaLibraryPermission();
     requestStoragePermission();
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }, []);
 
   const [fontsLoaded] = useFonts({

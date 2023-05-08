@@ -48,7 +48,6 @@ const Code = ({ navigation }) => {
     };
 
     if (code.length !== 4 || code != codeVer) {
-      console.log("el código no es válido");
       showToast("El código no es válido", "error");
       return;
     } else {

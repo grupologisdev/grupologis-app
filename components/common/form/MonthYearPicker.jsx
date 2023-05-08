@@ -27,7 +27,6 @@ const MonthYearPicker = ({
   showMonth = true,
   yearSup = false,
 }) => {
-  console.log("yearSup", yearSup);
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
       <View

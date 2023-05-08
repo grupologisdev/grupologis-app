@@ -32,7 +32,6 @@ const MultiStepForm = ({ onConfirm, closeModal }) => {
   const [loader, setLoader] = useState(false);
 
   const handleStepComplete = (data) => {
-    console.log("llego handleStepComplete", data);
     setFormData({ ...formData, ...data });
     handleNextStep();
   };
@@ -40,7 +39,6 @@ const MultiStepForm = ({ onConfirm, closeModal }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        console.log("novedad ingreso stepone unfocused");
         setLoader(false);
       };
     }, [])

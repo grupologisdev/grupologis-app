@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   leftContent: {
     display: "flex",
-    flexDirection: "colunm",
+    flexDirection: "column",
     alignContent: "space-between",
     width: "80%",
   },

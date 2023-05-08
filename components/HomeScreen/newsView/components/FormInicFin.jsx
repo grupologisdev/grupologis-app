@@ -29,13 +29,10 @@ const FormInicFin = ({ closeModal, onConfirm }) => {
   };
 
   const validateFech = () => {
-    console.log("selectedDates", selectedDates);
     if (selectedDates.startDate == "" || selectedDates.endDate == "") {
-      console.log("llene la fecha inicial y la fecha final");
       showToast("Seleccione todos los campos", "error");
       return false;
     } else {
-      console.log("informacion llena");
       onConfirm(selectedDates);
     }
   };

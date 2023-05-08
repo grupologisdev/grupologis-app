@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
-import Toast from "react-native-toast-message";
 import {
   View,
   TextInput,
@@ -22,6 +21,7 @@ import { Pressable } from "react-native";
 import FormDateStepTwo from "./formSteps/FormDateStepTwo";
 import { useFocusEffect } from "@react-navigation/native";
 import LoaderItemSwitch from "../../../common/loaders/LoaderItemSwitch";
+import Toast from "react-native-toast-message";
 
 const StepTwo = ({ formData, onComplete, completed }) => {
   const [laborOrden, setLaborOrden] = useState("");
@@ -34,49 +34,6 @@ const StepTwo = ({ formData, onComplete, completed }) => {
   const toggleSwitchDay = () => setIsDay31((previousState) => !previousState);
   const [loader, setLoader] = useState(false);
 
-  useEffect(() => {
-    if (completed) {
-      console.log("listConvenio useEffect", listConvenio);
-      const getServiciosSel = async () => {
-        console.log("buscar servicios ");
-        let infoLog = await AsyncStorage.getItem("logged");
-        infoLog = JSON.parse(infoLog);
-        const empSel = infoLog.empSel.toUpperCase();
-        const codEmp = infoLog.codEmp;
-
-        const pathReg = `GetTiposContrato.php?empresa=${empSel}`;
-        const pathOrd = `GetDatosOrdenIngreso.php?cod_cli=${codEmp}&empresa=${empSel}`;
-        console.log("pathReg", pathReg);
-        console.log("pathOrd", pathOrd);
-        const respReg = await getSer(pathReg);
-        console.log("respReg", respReg);
-        if (respReg == "limitExe") {
-          console.log("limitExe");
-        } else {
-          const respOrd = await getSer(pathOrd);
-          console.log("respOrd", respOrd);
-          if (respOrd == "limitExe") {
-            console.log("limitExe");
-          } else {
-            respReg.status
-              ? setListCont(respReg.data.tipcontratos)
-              : console.log("error al traer tipos contrato");
-
-            respOrd.status
-              ? setConvenio(respOrd.data.convenios)
-              : console.log("error al traer orden ingreso");
-          }
-        }
-      };
-      getServiciosSel();
-    }
-  }, [completed]);
-
-  const setSeleccForm = (selec) => {
-    console.log("selecciones formulario step 2", selec);
-    setInfoForm(selec);
-  };
-
   const showToast = (smg, type) => {
     Toast.show({
       type: type, //"success", error
@@ -86,20 +43,52 @@ const StepTwo = ({ formData, onComplete, completed }) => {
     });
   };
 
+  useEffect(() => {
+    if (completed) {
+      const getServiciosSel = async () => {
+        let infoLog = await AsyncStorage.getItem("logged");
+        infoLog = JSON.parse(infoLog);
+        const empSel = infoLog.empSel.toUpperCase();
+        const codEmp = infoLog.codEmp;
+
+        const pathReg = `GetTiposContrato.php?empresa=${empSel}`;
+        const pathOrd = `GetDatosOrdenIngreso.php?cod_cli=${codEmp}&empresa=${empSel}`;
+
+        const respReg = await getSer(pathReg);
+        if (respReg == "limitExe") {
+          console.log("limitExe");
+        } else {
+          const respOrd = await getSer(pathOrd);
+          if (respOrd == "limitExe") {
+            console.log("limitExe");
+          } else {
+            respReg.status
+              ? setListCont(respReg.data.tipcontratos)
+              : showToast("Error al traer tipos contrato", "error");
+
+            respOrd.status
+              ? setConvenio(respOrd.data.convenios)
+              : showToast("Error al traer orden ingreso", "error");
+          }
+        }
+      };
+      getServiciosSel();
+    }
+  }, [completed]);
+
+  const setSeleccForm = (selec) => {
+    setInfoForm(selec);
+  };
+
   const dateIngAndEgr = (infoDate) => {
     setDateIng(infoDate.ingreso);
     setDateEgr(infoDate.egreso);
   };
 
   const handlePress = () => {
-    console.log("retornar informacion");
-    console.log("laborOrden", laborOrden);
-    console.log("dateIng", dateIng);
-    console.log("dateEgr", dateEgr);
-    console.log("infoForm", infoForm);
     const { year, month, day } = dateIng;
     let fechaIng = new Date(parseInt(year), parseInt(month - 1), parseInt(day));
-    console.log("dateIng.date", fechaIng.getTime());
+
     let hoy = new Date();
     const tresDiasMs = 3 * 24 * 60 * 60 * 1000; // milisegundos en 3 días
     const nuevaFechaMs = hoy.getTime() + tresDiasMs;
@@ -118,15 +107,12 @@ const StepTwo = ({ formData, onComplete, completed }) => {
       trabajador.label == "Tipo de trabajador"
     ) {
       showToast("Por favor, rellene todos los campos", "error");
-      console.log("Por favor, rellene todos los campos", "error");
     } else if (
       jornada.label == "Jonada incompleta (Especificar la jornada)" &&
       jornadaPer.label == ""
     ) {
       showToast("Por favor, rellene todos los campos", "error");
-      console.log("Por favor, rellene todos los campos", "error");
     } else {
-      console.log("enviar todo");
       setLoader(true);
       onComplete({
         stepTwoData: {
@@ -143,7 +129,6 @@ const StepTwo = ({ formData, onComplete, completed }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        console.log("novedad ingreso steptwo unfocused");
         setLoader(false);
       };
     }, [])

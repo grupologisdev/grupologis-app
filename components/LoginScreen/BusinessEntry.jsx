@@ -20,11 +20,11 @@ import { Feather } from "@expo/vector-icons";
 import authContext from "../../context/auth/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchPost } from "../../utils/functions";
-import Toast from "react-native-toast-message";
 
 import FormuBussines from "./FormBussinessEntry/FormBussinesEntry";
 import LoaderItemSwitch from "../common/loaders/LoaderItemSwitch";
 import LoadFullScreen from "../../components/common/loaders/LoadFullScreen";
+import Toast from "react-native-toast-message";
 
 const BusinessE = ({ navigation }) => {
   const { setBusiness } = useContext(authContext);
@@ -62,21 +62,20 @@ const BusinessE = ({ navigation }) => {
     body += `&contactNumeroTelefonico=${phone}`;
     const path = "usuario/getEmpresa.php";
     const respApi = await fetchPost(path, body);
-    console.log("respApi", respApi);
+
     if (respApi.status) {
       const data = respApi.data;
       if (data != "falseEmpresa") {
         setOptionsHtml(data);
       } else {
-        console.log("no tiene acceso al sistema");
+        showToast("No tiene acceso al sistema", "error");
       }
     } else {
-      console.log("ocurrio un error en el sistema");
+      showToast("Error en el sistema", "error");
     }
   };
 
   useEffect(() => {
-    console.log("useEffect getOptionsBusiness");
     getOptionsBusiness();
   }, []);
 
@@ -94,7 +93,6 @@ const BusinessE = ({ navigation }) => {
         });
       });
 
-      console.log("result", result);
       setBusinessOption((businessOptionsNew) =>
         businessOptionsNew.concat(result)
       );
@@ -103,12 +101,11 @@ const BusinessE = ({ navigation }) => {
   }, [optionsHtml]);
 
   const handleSelectBusiness = async () => {
-    console.log("selectedBusiness", selectedBusiness);
     if (selectedBusiness != null) {
       setLoader(true);
       setReintentar(false);
       const type = await AsyncStorage.getItem("type");
-      console.log(type);
+
       const typeCli = type === "business" ? 2 : 1;
       const identification = await AsyncStorage.getItem("identi");
 
@@ -130,18 +127,16 @@ const BusinessE = ({ navigation }) => {
           await AsyncStorage.setItem("logged", loggedIn);
           navigation.navigate("Home");
         } else {
-          console.log(data);
+          showToast("ocurrio un error en el sistema", "error");
         }
       } else {
         if (data == "limitExe") {
           setLoader(false);
           showToast("El servicio demoro mas de lo normal", "error");
           setReintentar(true);
-          console.log("El servicio demoro mas de lo normal");
         } else {
           setLoader(false);
           showToast("ocurrio un error en el sistema", "error");
-          console.log("ocurrio un error en el sistema");
         }
       }
     } else {

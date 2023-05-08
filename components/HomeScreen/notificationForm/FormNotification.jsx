@@ -40,10 +40,9 @@ const NotificationForm = ({ closeM }) => {
     path += `?empresa=${empSel}&tipUser=${type}`;
 
     const respApi = await get(path);
-    console.log("respApi", respApi);
+
     const { status, data } = respApi;
     if (status) {
-      console.log("notificaciones", data);
       let cantNoLeid = 0;
       if (data.length > 0) {
         data.forEach((noti) => {
@@ -59,7 +58,7 @@ const NotificationForm = ({ closeM }) => {
       }
     } else {
       showToast("Ocurrio un error en el servidor", "error");
-      console.log("Ocurrio un error en el servidor", "error");
+
       setLoader(false);
     }
   };
@@ -67,9 +66,7 @@ const NotificationForm = ({ closeM }) => {
   useFocusEffect(
     React.useCallback(() => {
       getNotification();
-      return () => {
-        console.log("notificaciones unfocused");
-      };
+      return () => {};
     }, [])
   );
 

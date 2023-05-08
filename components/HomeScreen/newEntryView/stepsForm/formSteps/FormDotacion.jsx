@@ -25,7 +25,6 @@ class FormDotacion extends Component {
   openModal = (select) => {
     // let modalOptions = [];
     let modalOptions = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-    // console.log("optionsIns", optionsIns);
     switch (select) {
       case "selGuantes":
         modalOptions = modalOptions;
@@ -40,7 +39,6 @@ class FormDotacion extends Component {
         break;
     }
     this.setState({ modalVisible: true, modalOptions, modalSelect: select });
-    console.log("openModal", this.state);
   };
 
   closeModal = () => {
@@ -49,7 +47,6 @@ class FormDotacion extends Component {
 
   handleSelection = () => {
     const state = this.state;
-    console.log("state handleSelection", state);
     this.props.onSelectionChange({
       camisa: {
         label: state.selCamisa,
@@ -70,7 +67,6 @@ class FormDotacion extends Component {
   };
 
   render() {
-    console.log("render", this.state);
     return (
       <View style={styles.container}>
         <View style={styles.boxForm}>

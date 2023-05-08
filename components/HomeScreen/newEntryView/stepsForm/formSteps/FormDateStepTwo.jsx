@@ -52,7 +52,6 @@ const FormDateStepTwo = ({ changeResultDate }) => {
       <Pressable
         style={styles.select}
         onPress={() => {
-          console.log("abrir modal egreso");
           setModal(true);
           setDateSel("egreso");
         }}

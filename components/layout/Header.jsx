@@ -26,7 +26,6 @@ const Header = ({}) => {
       if (userDataJSON !== null) {
         const userData = JSON.parse(userDataJSON);
         setDataUs(userData);
-        console.log("dataUs3333", dataUs);
       }
     } catch (error) {
       console.log(error);

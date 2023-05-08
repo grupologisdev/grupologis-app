@@ -39,7 +39,7 @@ const News = (props) => {
         />
         <NewsList />
       </ScrollView>
-      {modal && (
+      {/* {modal && (
         <Modal animationType="slide" visible={modal} transparent={true}>
           <View style={styles.modalContainer}>
             {showForm && (
@@ -50,7 +50,7 @@ const News = (props) => {
             )}
           </View>
         </Modal>
-      )}
+      )} */}
     </Layout>
   );
 };

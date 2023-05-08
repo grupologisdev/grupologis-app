@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchPost } from "../utils/functions";
 import CapacitationsList from "../components/HomeScreen/capacitationsView/CapacitationsList";
 import { useFocusEffect } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 const Capacitations = (props) => {
   const { navigation } = props;
@@ -15,9 +16,17 @@ const Capacitations = (props) => {
   const [loader, setLoader] = useState(false);
   const [listCapac, setListCapac] = useState([]);
 
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  };
+
   const getCapacitations = async () => {
     setLoader(true);
-    console.log("buscar todas las capacitaciones");
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel;
@@ -27,7 +36,6 @@ const Capacitations = (props) => {
     const path = "usuario/getCapacitacionesEmp.php";
 
     const respApi = await fetchPost(path, info);
-    console.log("respApi", respApi);
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto == 1 && data.Programa.length > 0) {
@@ -39,17 +47,14 @@ const Capacitations = (props) => {
       }
     } else {
       setLoader(false);
-      console.log("error en el servidor");
+      showToast("Error en el servidor", "error");
     }
   };
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("capacitacions focused");
       getCapacitations();
-      return () => {
-        console.log("capacitacions unfocused");
-      };
+      return () => {};
     }, [])
   );
 

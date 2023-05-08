@@ -67,7 +67,6 @@ const StepOne = ({ formData, onComplete }) => {
     // if (completed) {
     if (id.length >= 8) {
       // buscar identificacion
-      console.log(id);
       getIdentificacionSer();
     }
     // }
@@ -76,7 +75,6 @@ const StepOne = ({ formData, onComplete }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        console.log("novedad ingreso stepone unfocused");
         setLoader(false);
       };
     }, [])
@@ -91,7 +89,6 @@ const StepOne = ({ formData, onComplete }) => {
         break;
       }
     }
-    console.log(addDep);
     setDepar(addDep);
     setMunic(idMun);
   };
@@ -103,9 +100,7 @@ const StepOne = ({ formData, onComplete }) => {
     const codEmp = infoLog.codEmp;
     let path = "GetRegistroEmpleado.php";
     path += `?cod_emp=${id}&empresa=${empSel}`;
-    console.log(path);
     const respApi = await getSer(path);
-    console.log(respApi);
     if (respApi.status) {
       const { data } = respApi;
       if (data.Existe === 1) {
@@ -122,14 +117,12 @@ const StepOne = ({ formData, onComplete }) => {
   };
 
   const setSelCountry = (dep, mun) => {
-    console.log("dep y ciu", dep, mun);
     setDepar(dep);
     setMunic(mun);
   };
 
   const handleIdentificationChange = (text) => {
     const parsedText = text;
-    console.log(parsedText);
     setId(parsedText);
   };
 

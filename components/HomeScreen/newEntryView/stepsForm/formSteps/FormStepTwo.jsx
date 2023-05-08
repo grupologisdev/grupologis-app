@@ -11,6 +11,7 @@ import { colors, heightPercentageToPx } from "../../../../../utils";
 import { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSer } from "../../../../../utils/axiosInstance";
+import Toast from "react-native-toast-message";
 
 class FormStepTwo extends Component {
   state = {
@@ -29,6 +30,15 @@ class FormStepTwo extends Component {
     modalOptions: [],
     modalSelect: "",
   };
+
+  showToast(smg, type) {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  }
 
   openModal = (select) => {
     let modalOptions = [];
@@ -58,7 +68,7 @@ class FormStepTwo extends Component {
       case "selCargo":
         this.state.modalOptionsCargo[0] != null
           ? (modalOptions = this.state.modalOptionsCargo)
-          : console.log("buscarlo despues que seleccione el convenio");
+          : this.showToast("Seleccione el convenio", "error");
         break;
       default:
         break;
@@ -71,7 +81,6 @@ class FormStepTwo extends Component {
   };
 
   getListCargos = async (codCon) => {
-    console.log("buscando convenio");
     this.setState({ selCargo: "Buscando convenio" });
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
@@ -82,7 +91,6 @@ class FormStepTwo extends Component {
     pathCarg += `?cod_cli=${codEmp}&empresa=${empSel}&cod_conv=${codCon}`;
 
     const respReg = await getSer(pathCarg);
-    console.log("respReg", respReg);
     if (respReg == "limitExe") {
       console.log("limitExe");
     } else {
@@ -91,7 +99,7 @@ class FormStepTwo extends Component {
         this.state.modalOptionsCargo = data.cargos;
         this.setState({ selCargo: "Seleccione convenio" });
       } else {
-        console.log("error al buscar listado de cargos");
+        this.showToast("Error al buscar listado de cargos", "error");
       }
     }
   };
