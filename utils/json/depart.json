@@ -1,0 +1,164 @@
+{
+  "departamentos": [
+    {
+      "id": "29",
+      "nombre": "AMAZONAS",
+      "divipola": "91"
+    },
+    {
+      "id": "1",
+      "nombre": "ANTIOQUIA",
+      "divipola": "5"
+    },
+    {
+      "id": "25",
+      "nombre": "ARAUCA",
+      "divipola": "81"
+    },
+    {
+      "id": "28",
+      "nombre": "ARCHIPIELAGO DE SAN ANDRES, PROVIDENCIA",
+      "divipola": "88"
+    },
+    {
+      "id": "2",
+      "nombre": "ATLANTICO",
+      "divipola": "8"
+    },
+    {
+      "id": "4",
+      "nombre": "BOLIVAR",
+      "divipola": "13"
+    },
+    {
+      "id": "5",
+      "nombre": "BOYACA",
+      "divipola": "15"
+    },
+    {
+      "id": "6",
+      "nombre": "CALDAS",
+      "divipola": "17"
+    },
+    {
+      "id": "7",
+      "nombre": "CAQUETA",
+      "divipola": "18"
+    },
+    {
+      "id": "26",
+      "nombre": "CASANARE",
+      "divipola": "85"
+    },
+    {
+      "id": "8",
+      "nombre": "CAUCA",
+      "divipola": "19"
+    },
+    {
+      "id": "9",
+      "nombre": "CESAR",
+      "divipola": "20"
+    },
+    {
+      "id": "10",
+      "nombre": "CORDOBA",
+      "divipola": "23"
+    },
+    {
+      "id": "11",
+      "nombre": "CUNDINAMARCA",
+      "divipola": "25"
+    },
+    {
+      "id": "12",
+      "nombre": "CHOCO",
+      "divipola": "27"
+    },
+    {
+      "id": "30",
+      "nombre": "GUAINIA",
+      "divipola": "94"
+    },
+    {
+      "id": "31",
+      "nombre": "GUAVIARE",
+      "divipola": "95"
+    },
+    {
+      "id": "13",
+      "nombre": "HUILA",
+      "divipola": "41"
+    },
+    {
+      "id": "14",
+      "nombre": "LA GUAJIRA",
+      "divipola": "44"
+    },
+    {
+      "id": "15",
+      "nombre": "MAGDALENA",
+      "divipola": "47"
+    },
+    {
+      "id": "16",
+      "nombre": "META",
+      "divipola": "50"
+    },
+    {
+      "id": "17",
+      "nombre": "NARINO",
+      "divipola": "52"
+    },
+    {
+      "id": "18",
+      "nombre": "NTE DE SANTANDER",
+      "divipola": "54"
+    },
+    {
+      "id": "27",
+      "nombre": "PUTUMAYO",
+      "divipola": "86"
+    },
+    {
+      "id": "19",
+      "nombre": "QUINDIO",
+      "divipola": "63"
+    },
+    {
+      "id": "20",
+      "nombre": "RISARALDA",
+      "divipola": "66"
+    },
+    {
+      "id": "21",
+      "nombre": "SANTANDER",
+      "divipola": "68"
+    },
+    {
+      "id": "22",
+      "nombre": "SUCRE",
+      "divipola": "70"
+    },
+    {
+      "id": "23",
+      "nombre": "TOLIMA",
+      "divipola": "73"
+    },
+    {
+      "id": "24",
+      "nombre": "VALLE DEL CAUCA",
+      "divipola": "76"
+    },
+    {
+      "id": "32",
+      "nombre": "VAUPES",
+      "divipola": "97"
+    },
+    {
+      "id": "33",
+      "nombre": "VICHADA",
+      "divipola": "99"
+    }
+  ]
+}

@@ -11,17 +11,27 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
+    "assetBundlePatterns": ["**/*"],
+    "permissions": [
+      "READ_EXTERNAL_STORAGE",
+      "WRITE_EXTERNAL_STORAGE",
+      "MEDIA_LIBRARY"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFileProviderServiceName": "com.myappglogis.fileprovider",
+        "NSFileProtection": "CompleteUnlessOpen",
+        "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
+        "NSPhotoLibraryUsageDescription": "La aplicación necesita acceder a la biblioteca de medios para guardar los archivos descargados"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.glogis2023.grupologisapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
