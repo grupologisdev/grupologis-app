@@ -25,6 +25,7 @@ import FormuBussines from "./FormBussinessEntry/FormBussinesEntry";
 import LoaderItemSwitch from "../common/loaders/LoaderItemSwitch";
 import LoadFullScreen from "../../components/common/loaders/LoadFullScreen";
 import Toast from "react-native-toast-message";
+import CloseLogin from "../../assets/images/auth/svg/CloseLogin";
 
 const BusinessE = ({ navigation }) => {
   const { setBusiness } = useContext(authContext);
@@ -47,8 +48,8 @@ const BusinessE = ({ navigation }) => {
 
   const returnPag = async () => {
     await AsyncStorage.clear();
-    navigation.goBack();
-    // navigation.navigate("Login");
+    // navigation.goBack();
+    navigation.navigate("Login");
   };
 
   const getOptionsBusiness = async () => {
@@ -154,7 +155,7 @@ const BusinessE = ({ navigation }) => {
         <View style={styles.container}>
           <Pressable onPress={() => returnPag()}>
             <View style={styles.goBackButton}>
-              <Feather name="x" size={24} color="black" />
+              <CloseLogin />
             </View>
           </Pressable>
           <View style={styles.topContainer}>

@@ -1,4 +1,7 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import StatusLine from "../../../common/StatusLine";
+import { colors, getFontStyles } from "../../../../utils";
+import InfoClaim from "../../../../assets/images/components/infoModal/InfoClaim";
 
 const ShowInfo = ({ modul, info }) => {
   return (
@@ -74,22 +77,31 @@ const ShowInfo = ({ modul, info }) => {
           )}
         </View>
       ) : (
-        <View>
-          {/* <Text>{JSON.stringify(info)}</Text> */}
-          <Text>Identificacion</Text>
-          <Text>{info.Documento.trim()}</Text>
+        <View style={styles.infoBoxContainer}>
+          <View style={styles.infoBoxImag}>
+            <InfoClaim />
+          </View>
+          <View>
+            {/* <Text>{JSON.stringify(info)}</Text> */}
+            <StatusLine status={info.Estado} />
+          </View>
+          <View style={styles.infoBox}>
+            <View>
+              <Text style={styles.textHead}>Año</Text>
+              <Text>{info.Fecha.trim().split("/")[2]}</Text>
+            </View>
+            <View>
+              <Text style={styles.textHead}>Mes</Text>
+              <Text>{info.Fecha.trim().split("/")[1]}</Text>
+            </View>
+            <View>
+              <Text style={styles.textHead}>No. Radicado</Text>
+              <Text>{info.Documento.trim()}</Text>
+            </View>
+          </View>
 
-          <Text>Fecha</Text>
-          <Text>{info.Fecha.trim()}</Text>
-
-          <Text>Asunto</Text>
-          <Text>{info.Asunto.trim()}</Text>
-
-          <Text>Comentario</Text>
-          <Text>{info.Comentario.trim()}</Text>
-
-          <Text>Estado</Text>
-          <Text>{info.Estado}</Text>
+          <Text style={styles.secondTitle}>{info.Asunto.trim()}</Text>
+          <Text style={styles.descrip}>{info.Comentario.trim()}</Text>
 
           {modul == "Capac" && (
             <>
@@ -105,10 +117,11 @@ const ShowInfo = ({ modul, info }) => {
               )}
             </>
           )}
-          {modul == "Quejas" && (
+
+          {modul == "Quejas" && info.Respuesta.trim() != "" && (
             <>
               <Text>Respuesta</Text>
-              <Text>{info.Respuesta.trim()}</Text>
+              <Text style={styles.descrip}>{info.Respuesta.trim()}</Text>
             </>
           )}
         </View>
@@ -118,3 +131,35 @@ const ShowInfo = ({ modul, info }) => {
 };
 
 export default ShowInfo;
+
+const styles = StyleSheet.create({
+  infoBoxContainer: {
+    marginBottom: 40,
+  },
+  infoBox: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  secondTitle: {
+    fontFamily: "Poppins-Bold",
+    textAlign: "center",
+    ...getFontStyles(18, 0.5, 0.9),
+  },
+  descrip: {
+    fontFamily: "Volks-Serial-Light",
+    color: colors.descriptionColors,
+    ...getFontStyles(14, 1, 1.2),
+    textAlign: "center",
+  },
+  textHead: {
+    fontFamily: "Volks-Serial-Medium",
+    color: colors.boldGray,
+    ...getFontStyles(14, 0.5, 0.9),
+  },
+  infoBoxImag: {
+    alignItems: "center",
+  },
+});

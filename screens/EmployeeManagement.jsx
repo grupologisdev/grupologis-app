@@ -13,6 +13,7 @@ import {
 import SvgHvida from "../assets/images/components/HomeScreen/EmployeeManagement/SvgHvida";
 import SvgMaestroE from "../assets/images/components/HomeScreen/EmployeeManagement/SvgMaestroE";
 import SvgNovedaI from "../assets/images/components/HomeScreen/EmployeeManagement/SvgNovedaI";
+import SvgCapacitations from "../assets/images/home/downloadView/SvgCapacitations";
 
 const displaySvg = (type) => {
   switch (type) {
@@ -23,7 +24,7 @@ const displaySvg = (type) => {
     case "maestroe":
       return <SvgMaestroE />;
     case "capacit":
-      return <SvgMaestroE />;
+      return <SvgCapacitations />;
     default:
       return null;
   }

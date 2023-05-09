@@ -13,6 +13,7 @@ import { get } from "../../../utils/axiosInstance";
 import Toast from "react-native-toast-message";
 import { useFocusEffect } from "@react-navigation/native";
 import LoaderItemSwitch from "../../common/loaders/LoaderItemSwitch";
+import LoaderItemSwitchDark from "../../common/loaders/LoaderItemSwitchDark";
 // import pathImg from "../../../assets/images/components/notifications/";
 
 const NotificationForm = ({ closeM }) => {
@@ -58,7 +59,6 @@ const NotificationForm = ({ closeM }) => {
       }
     } else {
       showToast("Ocurrio un error en el servidor", "error");
-
       setLoader(false);
     }
   };
@@ -96,7 +96,9 @@ const NotificationForm = ({ closeM }) => {
             <Text>Sin notificaciones</Text>
           )
         ) : (
-          <LoaderItemSwitch />
+          <View styles={styles.loaderItem}>
+            <LoaderItemSwitchDark />
+          </View>
         )}
       </View>
     </View>
@@ -189,5 +191,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 50,
     marginTop: 15,
+  },
+  loaderItem: {
+    width: widthPercentageToPx(100),
   },
 });

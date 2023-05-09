@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 
@@ -279,7 +286,9 @@ const styles = StyleSheet.create({
     width: widthPercentageToPx(100),
   },
   loginBackgroundImages: {
-    height: "90%",
-    width: "100%",
+    height: Platform.OS === "ios" ? "90%" : heightPercentageToPx(51),
+    width: Platform.OS === "ios" ? "100%" : widthPercentageToPx(100),
+    // height: "90%",
+    // width: "100%",
   },
 });

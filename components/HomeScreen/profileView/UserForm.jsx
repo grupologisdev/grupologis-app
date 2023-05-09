@@ -2,7 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import FormInput from "./FormInput";
 import GLButton from "../../common/buttons/GLButton";
-import { heightPercentageToPx, widthPercentageToPx } from "../../../utils";
+import {
+  getFontStyles,
+  heightPercentageToPx,
+  widthPercentageToPx,
+} from "../../../utils";
 import FormuBussines from "../../LoginScreen/FormBussinessEntry/FormBussinesEntry";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -82,12 +86,14 @@ const UserForm = ({ userData, navigation, handleChange, handleUpdateUser }) => {
             onChange={handleChange}
             disabled={false}
           />
-          <Text>Estado Civil</Text>
-          <FormuBussines
-            title={userData.Est_Civ.trim()}
-            list={estadoCiv[0]}
-            onOptionSel={(e) => handleChange("Id_Est_Civ", e)}
-          />
+          <View style={styles.formInputContainer}>
+            <Text style={styles.label}>Estado Civil</Text>
+            <FormuBussines
+              title={userData.Est_Civ.trim()}
+              list={estadoCiv[0]}
+              onOptionSel={(e) => handleChange("Id_Est_Civ", e)}
+            />
+          </View>
         </>
       )}
       <GLButton
@@ -121,5 +127,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: heightPercentageToPx(15),
+  },
+  label: {
+    fontFamily: "Poppins-Regular",
+    // marginLeft: 10,
+    ...getFontStyles(14, 0.5, 0.9),
+  },
+  formInputContainer: {
+    width: widthPercentageToPx(70),
+    marginBottom: 12,
   },
 });

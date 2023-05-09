@@ -96,7 +96,15 @@ class FormuBussines extends Component {
                     }}
                   >
                     <ScrollView>
-                      <Text style={styles.modalOption}>{option.label}</Text>
+                      <Text
+                        style={
+                          option.value === null
+                            ? styles.modalOptionTtl
+                            : styles.modalOption
+                        }
+                      >
+                        {option.label}
+                      </Text>
                     </ScrollView>
                   </TouchableOpacity>
                 ))}
@@ -166,6 +174,11 @@ const styles = StyleSheet.create({
   modalOption: {
     fontSize: 15,
     fontFamily: "Volks-Serial-Medium",
+  },
+  modalOptionTtl: {
+    fontSize: 19,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   input: {
     backgroundColor: colors.mainBackgroundColor,

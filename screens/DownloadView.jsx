@@ -62,25 +62,29 @@ const Download = (props) => {
   const [dataCards, setDataCards] = useState(
     userData.role === "employee" ? employeeDownloadables : businessDownloadables
   );
-  const scrollViewRef = useRef();
+  const [scrollViewWidth, setScrollViewWidth] = useState(0);
+  const scrollRef = useRef(null);
+  const animation = useRef(new Animated.Value(0)).current;
 
-  // const animateScroll = () => {
-  //   Animated.timing(scrollViewRef.current, {
-  //     toValue: { x: -width },
-  //     duration: 1000,
-  //     useNativeDriver: true,
-  //   }).start(() => {
-  //     Animated.timing(scrollViewRef.current, {
-  //       toValue: { x: 0 },
-  //       duration: 1000,
-  //       useNativeDriver: true,
-  //     }).start();
-  //   });
-  // };
+  useEffect(() => {
+    // Animar el contenido del ScrollView horizontal cuando la anchura del ScrollView se haya establecido
+    if (scrollViewWidth > 0) {
+      Animated.timing(animation, {
+        toValue: -scrollViewWidth,
+        duration: 3000,
+        useNativeDriver: true,
+      }).start(() => {
+        scrollRef.current.scrollTo({ x: 0, y: 0, animated: false });
+        Animated.timing(animation, {
+          toValue: 0,
+          duration: 3000,
+          useNativeDriver: true,
+        }).start();
+      });
+    }
+  }, [scrollViewWidth]);
 
-  // useEffect(() => {
-  //   animateScroll();
-  // }, []);
+  const translateX = animation;
 
   return (
     <Layout props={{ ...props }}>
@@ -97,9 +101,7 @@ const Download = (props) => {
 
               <View style={styles.descriptionContainer}>
                 <Text style={styles.welcomeDesc}>Trabajamos para mejorar</Text>
-                <Text style={styles.welcomeDesc}>tu experiencia como</Text>
-                <Text style={styles.welcomeDesc}>empleado o</Text>
-                <Text style={styles.welcomeDesc}>empresa.</Text>
+                <Text style={styles.welcomeDesc}>tu experiencia</Text>
               </View>
             </View>
             <Image
@@ -112,20 +114,25 @@ const Download = (props) => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-              // ref={scrollViewRef}
-              // style={{ width: width * 2 }}
+              onLayout={(event) =>
+                setScrollViewWidth(event.nativeEvent.layout.width)
+              }
+              ref={scrollRef}
             >
-              <View style={styles.downloadableCardsContainer}>
+              <Animated.View
+                style={{ flexDirection: "row", transform: [{ translateX }] }}
+              >
                 {dataCards.map((e) => (
-                  <DownloadableCard
-                    key={e.id}
-                    desc={e.description}
-                    image={displaySvg(e.id)}
-                    title={e.title}
-                    id={e.id}
-                  />
+                  <View style={styles.downloadableCardsContainer} key={e.id}>
+                    <DownloadableCard
+                      desc={e.description}
+                      image={displaySvg(e.id)}
+                      title={e.title}
+                      id={e.id}
+                    />
+                  </View>
                 ))}
-              </View>
+              </Animated.View>
             </ScrollView>
           </View>
         </View>
@@ -174,8 +181,8 @@ const styles = StyleSheet.create({
   workersImage: {
     height: heightPercentageToPx(30),
     width: widthPercentageToPx(70),
-    left: 37,
-    bottom: 220,
+    left: 50,
+    bottom: 180,
   },
 
   textInputContainers: {
@@ -202,6 +209,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   containerScroll: {
+    flex: 1,
     width: widthPercentageToPx(90),
     height:
       Platform.OS === "android"

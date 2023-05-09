@@ -4,6 +4,7 @@ import {
   Modal,
   Pressable,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,6 +16,7 @@ import {
 import StatusLine from "../../common/StatusLine";
 import CardElement from "../newsView/components/CardElement";
 import ShowInfo from "../newEntryView/stepsForm/ShowInfo";
+import GLButton from "../../common/buttons/GLButton";
 
 const ClaimCard = (props) => {
   const [modal, setModal] = useState(false);
@@ -51,6 +53,12 @@ const ClaimCard = (props) => {
               </TouchableOpacity>
               <View style={styles.modalContainer}>
                 <ShowInfo modul="Quejas" info={props} />
+                <GLButton
+                  type={"second"}
+                  placeholder="Cerrar"
+                  width={widthPercentageToPx(70)}
+                  onPressAction={() => closeModal()}
+                />
               </View>
             </View>
           </View>
@@ -96,9 +104,9 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: "white",
-    width: widthPercentageToPx(100),
-    height: heightPercentageToPx(100),
-    borderRadius: 40,
+    width: widthPercentageToPx(90),
+    height: heightPercentageToPx(80),
+    borderRadius: 10,
     padding: 30,
     position: "absolute",
     bottom: -20,

@@ -19,29 +19,60 @@ const getTextByStatus = (status) => {
   }
 };
 
-const LineElement = ({ completed }) => {
+// const LineElement = ({ completed }) => {
+//   return (
+//     <View style={styles.lineElement}>
+//       <View style={styles.line(completed)}></View>
+//       <FontAwesome
+//         name="circle"
+//         size={18}
+//         color={completed ? colors.gray : colors.green}
+//       />
+//     </View>
+//   );
+// };
+
+// const StatusLine = ({ status }) => {
+//   return (
+//     <View style={styles.statusContainer}>
+//       <Text style={styles.textStyle}>{status}</Text>
+
+//       <View style={styles.statusLine}>
+//         <LineElement completed={status != "Registrado"} />
+//         <LineElement completed={status != "En Proceso"} />
+//         <LineElement completed={status != "Finalizado"} />
+//         <LineElement completed={status != "Procesado"} />
+//       </View>
+//     </View>
+//   );
+// };
+
+const LineElement = ({ index, currentIndex }) => {
+  const completed = index <= currentIndex;
   return (
     <View style={styles.lineElement}>
-      <View style={styles.line(completed)}></View>
+      <View style={styles.line(!completed)}></View>
       <FontAwesome
         name="circle"
         size={18}
-        color={completed ? colors.gray : colors.green}
+        color={!completed ? colors.gray : colors.green}
       />
     </View>
   );
 };
 
 const StatusLine = ({ status }) => {
+  const statuses = ["Registrado", "En Proceso", "Finalizado", "Procesado"];
+  const currentIndex = statuses.indexOf(status);
+
   return (
     <View style={styles.statusContainer}>
       <Text style={styles.textStyle}>{status}</Text>
 
       <View style={styles.statusLine}>
-        <LineElement completed={status != "Registrado"} />
-        <LineElement completed={status != "Aprobado"} />
-        <LineElement completed={status != "Nómina"} />
-        <LineElement completed={status != "Completado"} />
+        {statuses.map((s, index) => (
+          <LineElement key={index} index={index} currentIndex={currentIndex} />
+        ))}
       </View>
     </View>
   );

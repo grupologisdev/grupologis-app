@@ -1,5 +1,12 @@
 import { useContext } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import authContext from "../context/auth/authContext";
 import {
   colors,
@@ -129,13 +136,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   imageContainer: {
-    height: heightPercentageToPx(50),
+    height:
+      Platform.OS === "ios"
+        ? heightPercentageToPx(50)
+        : heightPercentageToPx(44),
     width: widthPercentageToPx(100),
   },
   loginBackgroundImages: {
-    height: "90%",
-    width: "100%",
+    height: Platform.OS === "ios" ? "90%" : heightPercentageToPx(52),
+    width: Platform.OS === "ios" ? "100%" : widthPercentageToPx(100),
+    // height: "90%",
+    // width: "100%",
   },
 });
-
 export default LoginScreen;

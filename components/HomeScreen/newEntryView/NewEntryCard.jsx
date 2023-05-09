@@ -16,6 +16,9 @@ const NewEntryCard = (props) => {
   const [modal, setModal] = useState(false);
   const [SerCons, setSerCons] = useState("");
   const [infoDel, setInfoDel] = useState({});
+  const nameComp = props.nom1_emp.trim() + " " + props.ap1_emp.trim();
+  const cargo = props.tip_tra;
+
   const closeModal = () => {
     setModal(false);
   };
@@ -25,15 +28,18 @@ const NewEntryCard = (props) => {
       <View style={styles.leftContent}>
         <View style={styles.cardColumn}>
           <CardElement head={"RAD."} content={props.ID_oi} />
-          <CardElement
-            head={"Nombre"}
-            content={props.nom1_emp + " " + props.ap1_emp}
-          />
+          <CardElement head={"Fecha"} content={props.fecha_ing} />
         </View>
 
         <View style={styles.cardColumn}>
-          <CardElement head={"Fecha"} content={props.fecha_ing} />
-          <CardElement head={"Cargo"} content={props.tip_tra} />
+          <CardElement
+            head={"Nombre"}
+            content={nameComp.substring(0, 10) + "..."}
+          />
+          <CardElement
+            head={"Cargo"}
+            content={cargo.length > 19 ? cargo.substring(0, 19) + "..." : cargo}
+          />
         </View>
       </View>
       <View style={styles.cardColumn}>
@@ -58,7 +64,6 @@ const NewEntryCard = (props) => {
           </View>
         </Pressable>
 
-        {/* cambiar por una X  */}
         {props.estado == "PENDIENTE" && (
           <Pressable
             onPress={() => {
@@ -73,7 +78,7 @@ const NewEntryCard = (props) => {
             style={styles.rightContent}
           >
             <View style={styles.actionButton("ghost")}>
-              <AntDesign name="eye" size={18} color={colors.darkGray} />
+              <AntDesign name="close" size={18} color={colors.darkGray} />
             </View>
           </Pressable>
         )}
@@ -133,6 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardColumn: {
+    paddingRight: 5,
     display: "flex",
     flexDirection: "column",
     gap: 5,

@@ -392,6 +392,7 @@ export default DownloadableCard;
 
 const styles = StyleSheet.create({
   scrollStyle: {
+    marginRight: 12,
     width: 145,
     backgroundColor: colors.white,
     borderRadius: 17,
