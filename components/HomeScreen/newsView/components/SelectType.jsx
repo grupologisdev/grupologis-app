@@ -46,12 +46,12 @@ const SelectType = ({ continueWithForm }) => {
             />
           </Pressable>
         ))}
-        <GLButton
+        {/* <GLButton
           placeholder={"Siguiente"}
           type="default"
           width={widthPercentageToPx(75)}
           onPressAction={() => continueWithForm(2)}
-        />
+        /> */}
       </ScrollView>
     </View>
   );
