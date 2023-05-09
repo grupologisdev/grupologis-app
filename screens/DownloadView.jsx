@@ -5,6 +5,7 @@ import {
   Platform,
   Text,
   View,
+  Animated,
 } from "react-native";
 import {
   businessDownloadables,
@@ -15,7 +16,7 @@ import {
   widthPercentageToPx,
 } from "../utils";
 
-import { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import DownloadableCard from "../components/HomeScreen/downloadView/DownloadableCard";
 import Layout from "../components/layout/Layout.jsx";
 import authContext from "../context/auth/authContext";
@@ -31,6 +32,7 @@ import SvgAusentism from "../assets/images/home/downloadView/SvgAusentism";
 import SvgCapacitations from "../assets/images/home/downloadView/SvgCapacitations";
 import SvgHumanResourcesIndicator from "../assets/images/home/downloadView/SvgHumanResourcesIndicator";
 import { LoaderProgContextProvider } from "../context/loader/LoaderProgContext";
+import { Dimensions } from "react-native";
 
 const displaySvg = (type) => {
   switch (type) {
@@ -60,6 +62,26 @@ const Download = (props) => {
   const [dataCards, setDataCards] = useState(
     userData.role === "employee" ? employeeDownloadables : businessDownloadables
   );
+  const scrollViewRef = useRef();
+
+  // const animateScroll = () => {
+  //   Animated.timing(scrollViewRef.current, {
+  //     toValue: { x: -width },
+  //     duration: 1000,
+  //     useNativeDriver: true,
+  //   }).start(() => {
+  //     Animated.timing(scrollViewRef.current, {
+  //       toValue: { x: 0 },
+  //       duration: 1000,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   animateScroll();
+  // }, []);
+
   return (
     <Layout props={{ ...props }}>
       <ScrollView
@@ -70,13 +92,14 @@ const Download = (props) => {
           <View style={styles.infoContainer}>
             <View style={styles.title}>
               <Text style={styles.welcomeText}>Descarga!</Text>
-              <Text style={styles.subtitle}>Certificados y documentos</Text>
+              <Text style={styles.subtitle}>Certificados</Text>
+              <Text style={styles.subtitle}>y documentos</Text>
 
               <View style={styles.descriptionContainer}>
-                <Text style={styles.welcomeDesc}>
-                  Trabajamos para mejorar tu experiencia como empleado o
-                  empresa.
-                </Text>
+                <Text style={styles.welcomeDesc}>Trabajamos para mejorar</Text>
+                <Text style={styles.welcomeDesc}>tu experiencia como</Text>
+                <Text style={styles.welcomeDesc}>empleado o</Text>
+                <Text style={styles.welcomeDesc}>empresa.</Text>
               </View>
             </View>
             <Image
@@ -89,6 +112,8 @@ const Download = (props) => {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
+              // ref={scrollViewRef}
+              // style={{ width: width * 2 }}
             >
               <View style={styles.downloadableCardsContainer}>
                 {dataCards.map((e) => (
@@ -148,9 +173,9 @@ const styles = StyleSheet.create({
 
   workersImage: {
     height: heightPercentageToPx(30),
-    width: widthPercentageToPx(80),
-    left: 21,
-    bottom: 90,
+    width: widthPercentageToPx(70),
+    left: 37,
+    bottom: 220,
   },
 
   textInputContainers: {
@@ -165,7 +190,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(33),
+    height: heightPercentageToPx(26),
     overflow: "hidden",
     marginBottom: 7,
     backgroundColor: colors.white,

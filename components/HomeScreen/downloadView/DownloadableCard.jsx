@@ -392,11 +392,11 @@ export default DownloadableCard;
 
 const styles = StyleSheet.create({
   scrollStyle: {
-    width: 180,
+    width: 145,
     backgroundColor: colors.white,
     borderRadius: 17,
-    paddingHorizontal: 25,
-    paddingVertical: 25,
+    paddingHorizontal: 18,
+    paddingVertical: 18,
     alignItems: "flex-start",
     flexDirection: "column",
   },

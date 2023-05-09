@@ -4,7 +4,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useFonts } from "expo-font";
 
-import { PermissionsAndroid, KeyboardAvoidingView } from "react-native";
+import {
+  PermissionsAndroid,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 
@@ -125,10 +129,20 @@ const HomeScreens = () => {
 };
 
 export default function App() {
+  const lockScreenOrientation = async () => {
+    Platform.OS == "android"
+      ? await ScreenOrientation.lockAsync(
+          ScreenOrientation.OrientationLock.PORTRAIT
+        )
+      : await ScreenOrientation.lockAsync(
+          ScreenOrientation.OrientationLock.PORTRAIT_UP
+        );
+  };
+
   useEffect(() => {
     getMediaLibraryPermission();
     requestStoragePermission();
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    lockScreenOrientation();
   }, []);
 
   const [fontsLoaded] = useFonts({
