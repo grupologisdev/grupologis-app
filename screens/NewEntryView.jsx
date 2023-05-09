@@ -22,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSer, postSer } from "../utils/axiosInstance";
 import LoaderItemSwitch from "../components/common/loaders/LoaderItemSwitch";
 import { useFocusEffect } from "@react-navigation/native";
+import LoaderItemSwitchDark from "../components/common/loaders/LoaderItemSwitchDark";
 
 const NewEntryView = (props) => {
   const { navigation } = props;
@@ -202,7 +203,9 @@ const NewEntryView = (props) => {
         {!loader ? (
           <NewEntryList newingList={listNoved} />
         ) : (
-          <LoaderItemSwitch />
+          <View style={styles.loaderContainer}>
+            <LoaderItemSwitchDark />
+          </View>
         )}
       </ScrollView>
       {modal && (
@@ -241,5 +244,10 @@ const styles = StyleSheet.create({
   modalContainer: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  loaderContainer: {
+    marginTop: heightPercentageToPx(15),
+    display: "flex",
+    alignContent: "center",
   },
 });
