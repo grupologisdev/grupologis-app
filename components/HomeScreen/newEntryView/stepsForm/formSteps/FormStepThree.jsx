@@ -162,81 +162,87 @@ class Formulario extends Component {
               />
             </TouchableOpacity>
             <View style={styles.selectContainer}>
-              {this.state.modalOptions.map((option, index) =>
-                this.state.modalSelect == "selSalario" ? (
-                  <TouchableOpacity
-                    key={option}
-                    style={styles.modalOptionBox}
-                    onPress={() => {
-                      // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                      this.setState(
-                        {
-                          [this.state.modalSelect]: option,
-                          modalVisible: false,
-                          modalOptions: [],
-                          modalSelect: "",
-                        },
-                        () => {
-                          this.handleSelection();
-                        }
-                      );
-                    }}
-                  >
-                    <Text style={styles.modalOption}>{option}</Text>
-                  </TouchableOpacity>
-                ) : this.state.modalSelect == "selCenCost" ? (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.modalOptionBox}
-                    onPress={() => {
-                      // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                      this.setState(
-                        {
-                          [this.state.modalSelect]: option.conv_cco_des.trim(),
-                          selCenCost: option.conv_cco_des.trim(),
-                          selCenCost2: option.conv_cco.trim(),
-                          modalVisible: false,
-                          modalOptions: [],
-                          modalSelect: "",
-                        },
-                        () => {
-                          this.handleSelection();
-                        }
-                      );
-                    }}
-                  >
-                    <Text style={styles.modalOption}>
-                      {option.conv_cco_des.trim()}
-                    </Text>
-                  </TouchableOpacity>
-                ) : (
-                  // select selAuxBon Auxilio / bonificacion
-                  <TouchableOpacity
-                    key={option.cod_con.trim()}
-                    style={styles.modalOptionBox}
-                    onPress={() => {
-                      // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                      this.setState(
-                        {
-                          [this.state.modalSelect]: option.nom_con.trim(),
-                          selAuxBon: option.nom_con.trim(),
-                          selAuxBon2: option.cod_con.trim(),
-                          modalVisible: false,
-                          modalOptions: [],
-                          modalSelect: "",
-                        },
-                        () => {
-                          this.handleSelection();
-                        }
-                      );
-                    }}
-                  >
-                    <Text style={styles.modalOption}>
-                      {option.nom_con.trim()}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              )}
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+              >
+                {this.state.modalOptions.map((option, index) =>
+                  this.state.modalSelect == "selSalario" ? (
+                    <TouchableOpacity
+                      key={option}
+                      style={styles.modalOptionBox}
+                      onPress={() => {
+                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                        this.setState(
+                          {
+                            [this.state.modalSelect]: option,
+                            modalVisible: false,
+                            modalOptions: [],
+                            modalSelect: "",
+                          },
+                          () => {
+                            this.handleSelection();
+                          }
+                        );
+                      }}
+                    >
+                      <Text style={styles.modalOption}>{option}</Text>
+                    </TouchableOpacity>
+                  ) : this.state.modalSelect == "selCenCost" ? (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.modalOptionBox}
+                      onPress={() => {
+                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                        this.setState(
+                          {
+                            [this.state.modalSelect]:
+                              option.conv_cco_des.trim(),
+                            selCenCost: option.conv_cco_des.trim(),
+                            selCenCost2: option.conv_cco.trim(),
+                            modalVisible: false,
+                            modalOptions: [],
+                            modalSelect: "",
+                          },
+                          () => {
+                            this.handleSelection();
+                          }
+                        );
+                      }}
+                    >
+                      <Text style={styles.modalOption}>
+                        {option.conv_cco_des.trim()}
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    // select selAuxBon Auxilio / bonificacion
+                    <TouchableOpacity
+                      key={option.cod_con.trim()}
+                      style={styles.modalOptionBox}
+                      onPress={() => {
+                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                        this.setState(
+                          {
+                            [this.state.modalSelect]: option.nom_con.trim(),
+                            selAuxBon: option.nom_con.trim(),
+                            selAuxBon2: option.cod_con.trim(),
+                            modalVisible: false,
+                            modalOptions: [],
+                            modalSelect: "",
+                          },
+                          () => {
+                            this.handleSelection();
+                          }
+                        );
+                      }}
+                    >
+                      <Text style={styles.modalOption}>
+                        {option.nom_con.trim()}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                )}
+              </ScrollView>
             </View>
           </View>
         </Modal>

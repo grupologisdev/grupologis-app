@@ -7,11 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { colors, heightPercentageToPx } from "../../../../../utils";
+import {
+  colors,
+  heightPercentageToPx,
+  widthPercentageToPx,
+} from "../../../../../utils";
 import { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSer } from "../../../../../utils/axiosInstance";
 import Toast from "react-native-toast-message";
+import { ScrollView } from "react-native";
 
 class FormStepTwo extends Component {
   state = {
@@ -235,110 +240,115 @@ class FormStepTwo extends Component {
               </TouchableOpacity>
 
               <View style={styles.selectContainer}>
-                {this.state.modalOptions.map((option) =>
-                  this.state.modalSelect == "selTrabajador" ||
-                  this.state.modalSelect == "selJornada" ? (
-                    <TouchableOpacity
-                      key={option}
-                      style={styles.modalOptionBox}
-                      onPress={() => {
-                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                        this.setState(
-                          {
-                            [this.state.modalSelect]: option,
-                            modalVisible: false,
-                            modalOptions: [],
-                            modalSelect: "",
-                          },
-                          () => {
-                            this.handleSelection();
-                          }
-                        );
-                      }}
-                    >
-                      <Text style={styles.modalOption}>{option}</Text>
-                    </TouchableOpacity>
-                  ) : // select contratos
-                  this.state.modalSelect == "selContrato" ? (
-                    <TouchableOpacity
-                      key={option.tip_con.trim()}
-                      style={styles.modalOptionBox}
-                      onPress={() => {
-                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                        this.setState(
-                          {
-                            [this.state.modalSelect]: option.nom_con.trim(),
-                            selContrato: option.nom_con.trim(),
-                            selContrato2: option.tip_con.trim(),
-                            modalVisible: false,
-                            modalOptions: [],
-                            modalSelect: "",
-                          },
-                          () => {
-                            this.handleSelection();
-                          }
-                        );
-                      }}
-                    >
-                      <Text style={styles.modalOption}>
-                        {option.nom_con.trim()}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : // select convenios
-                  this.state.modalSelect == "selConvenio" ? (
-                    <TouchableOpacity
-                      key={option.cod_conv.trim()}
-                      style={styles.modalOptionBox}
-                      onPress={() => {
-                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                        this.setState(
-                          {
-                            [this.state.modalSelect]: option.nom_conv.trim(),
-                            selConvenio: option.nom_conv.trim(),
-                            selConvenio2: option.cod_conv.trim(),
-                            modalVisible: false,
-                            modalOptions: [],
-                            modalSelect: "",
-                          },
-                          () => {
-                            this.getListCargos(option.cod_conv.trim());
-                            this.handleSelection();
-                          }
-                        );
-                      }}
-                    >
-                      <Text style={styles.modalOption}>
-                        {option.nom_conv.trim()}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : (
-                    // select cargos
-                    <TouchableOpacity
-                      key={option.cod_car.trim()}
-                      style={styles.modalOptionBox}
-                      onPress={() => {
-                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                        this.setState(
-                          {
-                            [this.state.modalSelect]: option.nom_car.trim(),
-                            selCargo: option.nom_car.trim(),
-                            selCargo2: option.cod_car.trim(),
-                            modalVisible: false,
-                            modalOptions: [],
-                            modalSelect: "",
-                          },
-                          () => {
-                            this.handleSelection();
-                          }
-                        );
-                      }}
-                    >
-                      <Text style={styles.modalOption}>
-                        {option.nom_car.trim()}
-                      </Text>
-                    </TouchableOpacity>
-                  )
-                )}
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                >
+                  {this.state.modalOptions.map((option) =>
+                    this.state.modalSelect == "selTrabajador" ||
+                    this.state.modalSelect == "selJornada" ? (
+                      <TouchableOpacity
+                        key={option}
+                        style={styles.modalOptionBox}
+                        onPress={() => {
+                          // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                          this.setState(
+                            {
+                              [this.state.modalSelect]: option,
+                              modalVisible: false,
+                              modalOptions: [],
+                              modalSelect: "",
+                            },
+                            () => {
+                              this.handleSelection();
+                            }
+                          );
+                        }}
+                      >
+                        <Text style={styles.modalOption}>{option}</Text>
+                      </TouchableOpacity>
+                    ) : // select contratos
+                    this.state.modalSelect == "selContrato" ? (
+                      <TouchableOpacity
+                        key={option.tip_con.trim()}
+                        style={styles.modalOptionBox}
+                        onPress={() => {
+                          // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                          this.setState(
+                            {
+                              [this.state.modalSelect]: option.nom_con.trim(),
+                              selContrato: option.nom_con.trim(),
+                              selContrato2: option.tip_con.trim(),
+                              modalVisible: false,
+                              modalOptions: [],
+                              modalSelect: "",
+                            },
+                            () => {
+                              this.handleSelection();
+                            }
+                          );
+                        }}
+                      >
+                        <Text style={styles.modalOption}>
+                          {option.nom_con.trim()}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : // select convenios
+                    this.state.modalSelect == "selConvenio" ? (
+                      <TouchableOpacity
+                        key={option.cod_conv.trim()}
+                        style={styles.modalOptionBox}
+                        onPress={() => {
+                          // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                          this.setState(
+                            {
+                              [this.state.modalSelect]: option.nom_conv.trim(),
+                              selConvenio: option.nom_conv.trim(),
+                              selConvenio2: option.cod_conv.trim(),
+                              modalVisible: false,
+                              modalOptions: [],
+                              modalSelect: "",
+                            },
+                            () => {
+                              this.getListCargos(option.cod_conv.trim());
+                              this.handleSelection();
+                            }
+                          );
+                        }}
+                      >
+                        <Text style={styles.modalOption}>
+                          {option.nom_conv.trim()}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      // select cargos
+                      <TouchableOpacity
+                        key={option.cod_car.trim()}
+                        style={styles.modalOptionBox}
+                        onPress={() => {
+                          // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                          this.setState(
+                            {
+                              [this.state.modalSelect]: option.nom_car.trim(),
+                              selCargo: option.nom_car.trim(),
+                              selCargo2: option.cod_car.trim(),
+                              modalVisible: false,
+                              modalOptions: [],
+                              modalSelect: "",
+                            },
+                            () => {
+                              this.handleSelection();
+                            }
+                          );
+                        }}
+                      >
+                        <Text style={styles.modalOption}>
+                          {option.nom_car.trim()}
+                        </Text>
+                      </TouchableOpacity>
+                    )
+                  )}
+                </ScrollView>
               </View>
             </View>
           </Modal>
@@ -379,17 +389,17 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
   },
   modal: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    margin: 16,
-    borderRadius: 8,
-    padding: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "white",
+    width: widthPercentageToPx(100),
+    height: heightPercentageToPx(40),
+    borderRadius: 40,
+    padding: 30,
+    position: "absolute",
+    bottom: -20,
   },
   closeButton: {
     position: "absolute",
-    top: 50,
+    top: 20,
     right: 30,
   },
   selectContainer: {

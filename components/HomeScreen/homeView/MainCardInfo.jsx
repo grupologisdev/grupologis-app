@@ -1,13 +1,22 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  PixelRatio,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import {
   colors,
   getFontStyles,
   heightPercentageToPx,
   widthPercentageToPx,
 } from "../../../utils";
+const pixelDensity = parseInt(PixelRatio.get());
 
 const MainCardInfo = ({ firstTitle, secondTitle, description }) => {
+  console.log(Platform.OS, pixelDensity);
   return (
     <View style={styles.cardContainer}>
       <View style={styles.infoContainer}>
@@ -16,7 +25,9 @@ const MainCardInfo = ({ firstTitle, secondTitle, description }) => {
           <Text style={styles.secondTitleText}>{secondTitle}</Text>
 
           <View style={styles.descriptionContainer}>
-            <Text style={styles.welcomeDesc}>{description}</Text>
+            <Text style={styles.welcomeDesc(pixelDensity <= 1 ? 12 : 14)}>
+              {description}
+            </Text>
           </View>
         </View>
       </View>
@@ -50,18 +61,19 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     width: widthPercentageToPx(40),
   },
-  welcomeDesc: {
+  welcomeDesc: (tmn) => ({
     fontFamily: "Volks-Serial-Light",
     color: colors.descriptionColors,
-    ...getFontStyles(14, 0.5, 1.2),
-  },
+    ...getFontStyles(tmn, 0.5, 1.2),
+  }),
 
   workersImage: {
     height:
       Platform.OS === "android"
         ? heightPercentageToPx(22)
         : heightPercentageToPx(21),
-    width: widthPercentageToPx(43),
+    width:
+      pixelDensity <= 1 ? widthPercentageToPx(39) : widthPercentageToPx(43),
     right: 0,
     bottom: 0,
     borderBottomRightRadius: 17,

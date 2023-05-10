@@ -1,6 +1,13 @@
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import {
   colors,
@@ -11,6 +18,7 @@ import CardElement from "../newsView/components/CardElement";
 import ShowInfo from "./stepsForm/ShowInfo";
 import { TouchableOpacity } from "react-native";
 import DeleteNovIng from "./stepsForm/DeleteNovIng";
+import GLButton from "../../common/buttons/GLButton";
 
 const NewEntryCard = (props) => {
   const [modal, setModal] = useState(false);
@@ -97,9 +105,22 @@ const NewEntryCard = (props) => {
                   color={colors.placeholderColor}
                 />
               </TouchableOpacity>
-              <View style={styles.modalContainer}>
+              <View>
                 {SerCons == "info" ? (
-                  <ShowInfo modul="NovIngreso" info={props} />
+                  <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    <View style={styles.infoShow}>
+                      <ShowInfo modul="NovIngreso" info={props} />
+                      <GLButton
+                        type={"second"}
+                        placeholder="Salir"
+                        width={widthPercentageToPx(70)}
+                        onPressAction={() => closeModal()}
+                      />
+                    </View>
+                  </ScrollView>
                 ) : (
                   <DeleteNovIng
                     infoDel={infoDel}
@@ -157,12 +178,16 @@ const styles = StyleSheet.create({
   }),
   modal: {
     backgroundColor: "white",
-    width: widthPercentageToPx(100),
-    height: heightPercentageToPx(100),
-    borderRadius: 40,
+    width: widthPercentageToPx(91),
+    height: heightPercentageToPx(82),
+    borderRadius: 20,
     padding: 30,
     position: "absolute",
     bottom: -20,
+  },
+  closeButton: {
+    top: widthPercentageToPx(-4),
+    left: widthPercentageToPx(-4),
   },
   modalContainer: {
     flex: 1,
@@ -171,5 +196,8 @@ const styles = StyleSheet.create({
     height: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  infoShow: {
+    marginBottom: 90,
   },
 });

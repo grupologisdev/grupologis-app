@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import {
   colors,
   heightPercentageToPx,
@@ -10,6 +16,7 @@ import { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
 import ShowInfo from "../newEntryView/stepsForm/ShowInfo";
+import GLButton from "../../common/buttons/GLButton";
 
 const CapacitationsCard = (props) => {
   const [modal, setModal] = useState(false);
@@ -45,8 +52,19 @@ const CapacitationsCard = (props) => {
                 color={colors.placeholderColor}
               />
             </TouchableOpacity>
-            <View style={styles.modalContainer}>
-              <ShowInfo modul="Capac" info={props} />
+            <View style={styles.modalContainerInfo}>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+              >
+                <ShowInfo modul="Capac" info={props} />
+                <GLButton
+                  type={"second"}
+                  placeholder="Cerrar"
+                  width={widthPercentageToPx(70)}
+                  onPressAction={() => closeModal()}
+                />
+              </ScrollView>
             </View>
           </View>
         </View>
@@ -90,13 +108,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  modalContainerInfo: {
+    marginBottom: 50,
+  },
   modal: {
     backgroundColor: "white",
-    width: widthPercentageToPx(100),
-    height: heightPercentageToPx(100),
-    borderRadius: 40,
+    width: widthPercentageToPx(90),
+    height: heightPercentageToPx(80),
+    borderRadius: 20,
     padding: 30,
     position: "absolute",
     bottom: -20,
+  },
+  closeButton: {
+    top: widthPercentageToPx(-4),
+    left: widthPercentageToPx(-4),
   },
 });

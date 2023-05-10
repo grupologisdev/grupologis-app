@@ -243,12 +243,12 @@ export const employeeManagement = [
     description: "Ahora puedes generar una novedad de ingreso desde la App",
     // image: svg.
   },
-  {
-    id: "maestroe",
-    title: "Maestro empleado",
-    description: "Ahora puedes descargar tu certificado de maestro empleado",
-    // 2Enseguida pues en el avión por ahí abiertaimage: svg.
-  },
+  // {
+  //   id: "maestroe",
+  //   title: "Maestro empleado",
+  //   description: "Ahora puedes descargar tu certificado de maestro empleado",
+  //   // 2Enseguida pues en el avión por ahí abiertaimage: svg.
+  // },
   {
     id: "capacit",
     title: "Capacitaciones",

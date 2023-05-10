@@ -46,7 +46,7 @@ const FormDateStepTwo = ({ changeResultDate }) => {
         }}
       >
         <Text style={styles.selectText}>{textDateIng}</Text>
-        <Ionicons name="md-close" size={25} color={colors.placeholderColor} />
+        <Ionicons name="calendar" size={25} color={colors.placeholderColor} />
       </Pressable>
 
       <Pressable
@@ -57,29 +57,31 @@ const FormDateStepTwo = ({ changeResultDate }) => {
         }}
       >
         <Text style={styles.selectText}>{textDateEgr}</Text>
-        <Ionicons name="md-close" size={25} color={colors.placeholderColor} />
+        <Ionicons name="calendar" size={25} color={colors.placeholderColor} />
       </Pressable>
 
       {/* modal  */}
       {modal && (
         <Modal animationType="slide" visible={modal} transparent={true}>
           <View style={styles.modalForm}>
-            <Pressable onPress={() => setModal(false)}>
-              <View style={styles.goBackButton}>
-                <Feather name="x" size={24} color={colors.purpleIcons} />
-              </View>
-            </Pressable>
-            <SpecialCalendar
-              placeholder={`Fecha de ${dateSel}`}
-              value={new Date()}
-              dia={dateSel == "ingreso" ? fechaAc.getDate() + 3 : ""}
-              onChange={(e) => {
-                dateSel == "ingreso"
-                  ? setTextDateIng(e.date)
-                  : setTextDateEgr(e.date);
-                resDate(e);
-              }}
-            />
+            <View style={styles.infoForm}>
+              <Pressable onPress={() => setModal(false)}>
+                <View style={styles.goBackButton}>
+                  <Feather name="x" size={24} color={colors.purpleIcons} />
+                </View>
+              </Pressable>
+              <SpecialCalendar
+                placeholder={`Fecha de ${dateSel}`}
+                value={new Date()}
+                dia={dateSel == "ingreso" ? fechaAc.getDate() + 3 : ""}
+                onChange={(e) => {
+                  dateSel == "ingreso"
+                    ? setTextDateIng(e.date)
+                    : setTextDateEgr(e.date);
+                  resDate(e);
+                }}
+              />
+            </View>
           </View>
         </Modal>
       )}
@@ -110,14 +112,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalForm: {
-    top: 200,
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    transform: [{ translateY: 0 }],
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    // top: 80,
+    // marginLeft: widthPercentageToPx(5),
+    // borderRadius: 10,
+    // paddingVertical: 10,
+    // paddingHorizontal: 20,
+    // transform: [{ translateY: 0 }],
+    width: widthPercentageToPx(100),
+    height: heightPercentageToPx(100),
+    backgroundColor: "rgba(0,0,0,0.4)",
+  },
+  infoForm: {
     width: widthPercentageToPx(90),
     height: heightPercentageToPx(25),
     backgroundColor: "rgb(255,255,255)",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   goBackButton: {
     position: "relative",

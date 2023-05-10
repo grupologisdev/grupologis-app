@@ -132,13 +132,14 @@ const styles = StyleSheet.create({
   },
   dayElement: (isSelected) => ({
     width: 70,
-    height: 30,
+    height: 50,
     borderRadius: 8,
     borderWidth: isSelected ? 2 : 0,
     borderColor: isSelected ? colors.green : colors.white,
     backgroundColor: colors.white,
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
   }),
   dayNumber: {

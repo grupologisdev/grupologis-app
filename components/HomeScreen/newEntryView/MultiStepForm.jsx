@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import {
   colors,
@@ -91,21 +92,30 @@ const MultiStepForm = ({ onConfirm, closeModal }) => {
   const StepComponent = steps[currentStep].component;
   const onComplete = steps[currentStep].onComplete;
 
+  const handlePress = () => {
+    // cerrar el teclado
+    Keyboard.dismiss();
+  };
   return (
     <View style={styles.modalForm}>
-      <Pressable onPress={closeModal} style={styles.headFormStep}>
-        <View style={styles.goBackButton}>
-          <Feather name="x" size={24} color={colors.purpleIcons} />
-        </View>
-        <View>
-          <Text style={styles.ttlFormStep}>NUEVA NOVEDADES INGRESO</Text>
-        </View>
-      </Pressable>
-
-      <View>
-        <CircleProgressBar currentStep={currentStep} />
+      <View style={styles.headFormStep}>
+        <Pressable onPress={closeModal}>
+          <View style={styles.goBackButton}>
+            <Feather name="x" size={24} color={colors.purpleIcons} />
+          </View>
+        </Pressable>
+        <Pressable onPress={() => handlePress()}>
+          <View>
+            <Text style={styles.ttlFormStep}>NUEVA NOVEDADES INGRESO</Text>
+          </View>
+        </Pressable>
       </View>
 
+      <Pressable onPress={() => handlePress()}>
+        <View>
+          <CircleProgressBar currentStep={currentStep} />
+        </View>
+      </Pressable>
       <ScrollView>
         {steps.map((step, index) => (
           <View
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     transform: [{ translateY: 50 }],
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(70),
+    height: heightPercentageToPx(72),
   },
   goBackButton: {
     position: "relative",

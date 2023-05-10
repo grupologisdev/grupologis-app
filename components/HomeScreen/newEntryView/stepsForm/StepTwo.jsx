@@ -32,7 +32,6 @@ const StepTwo = ({ formData, onComplete, completed }) => {
   const [isDay31, setIsDay31] = useState(false);
   const [infoForm, setInfoForm] = useState({});
   const toggleSwitchDay = () => setIsDay31((previousState) => !previousState);
-  const [loader, setLoader] = useState(false);
 
   const showToast = (smg, type) => {
     Toast.show({
@@ -113,7 +112,6 @@ const StepTwo = ({ formData, onComplete, completed }) => {
     ) {
       showToast("Por favor, rellene todos los campos", "error");
     } else {
-      setLoader(true);
       onComplete({
         stepTwoData: {
           select: infoForm,
@@ -125,14 +123,6 @@ const StepTwo = ({ formData, onComplete, completed }) => {
       });
     }
   };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        setLoader(false);
-      };
-    }, [])
-  );
 
   return (
     <View>
@@ -153,16 +143,19 @@ const StepTwo = ({ formData, onComplete, completed }) => {
       />
       <Text>Pago dia 31</Text>
       <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isDay31 ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
+        trackColor={{
+          false: colors.placeholderColor,
+          true: colors.mainBackgroundColor,
+        }}
+        thumbColor={isDay31 ? colors.buttonsColor : colors.gray}
+        ios_backgroundColor={colors.placeholderColor}
         onValueChange={toggleSwitchDay}
         value={isDay31}
       />
       <GLButton
         onPressAction={handlePress}
         type="default"
-        placeholder={!loader ? "Siguiente" : <LoaderItemSwitch />}
+        placeholder={"Siguiente"}
         width={widthPercentageToPx(70)}
       />
 

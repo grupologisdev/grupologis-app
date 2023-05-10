@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, TextInput, Button, Text, Switch } from "react-native";
 import FormStepThree from "./formSteps/FormStepThree";
 import GLButton from "../../../common/buttons/GLButton";
-import { widthPercentageToPx } from "../../../../utils";
+import { colors, widthPercentageToPx } from "../../../../utils";
 import FormDotacion from "./formSteps/FormDotacion";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSer } from "../../../../utils/axiosInstance";
@@ -15,7 +15,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
   const [dotacion, setDotacion] = useState(false);
   const [listCenCost, setListCenCost] = useState([]);
   const [listAuxBon, setListAuxBon] = useState([]);
-  const [loader, setLoader] = useState(false);
 
   const toggleDotacion = () => setDotacion((previousState) => !previousState);
 
@@ -65,14 +64,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
     }
   }, [completed]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        setLoader(false);
-      };
-    }, [])
-  );
-
   const setSeleccForm = (selec) => {
     setValue({ ...value, ...selec });
   };
@@ -115,7 +106,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
       ) {
         showToast("Por favor, rellene todos los campos", "error");
       } else {
-        setLoader(true);
         onComplete({
           stepThreeData: {
             select: value,
@@ -129,12 +119,6 @@ const StepThree = ({ formData, onComplete, completed }) => {
   };
 
   return (
-    // salario -
-    // valor salario -
-    // centro costos -
-    // auxilio bon
-    // auxilio bon valor
-    // dotacion
     <View>
       <FormStepThree
         lisCenCost={listCenCost}
@@ -143,9 +127,12 @@ const StepThree = ({ formData, onComplete, completed }) => {
       />
       <Text>Dotacion Aspirante</Text>
       <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={dotacion ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
+        trackColor={{
+          false: colors.placeholderColor,
+          true: colors.mainBackgroundColor,
+        }}
+        thumbColor={dotacion ? colors.buttonsColor : colors.gray}
+        ios_backgroundColor={colors.placeholderColor}
         onValueChange={toggleDotacion}
         value={dotacion}
       />
@@ -153,7 +140,7 @@ const StepThree = ({ formData, onComplete, completed }) => {
       <GLButton
         onPressAction={handlePress}
         type="default"
-        placeholder={!loader ? "Siguiente" : <LoaderItemSwitch />}
+        placeholder={"Siguiente"}
         width={widthPercentageToPx(70)}
       />
     </View>

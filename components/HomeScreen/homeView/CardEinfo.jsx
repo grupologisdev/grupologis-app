@@ -1,5 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import {
   colors,
@@ -19,6 +19,15 @@ const CardEinfo = ({
   onInputChange,
 }) => {
   const [identif, setIdentif] = useState("");
+  const [isPressed, setIsPressed] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isPressed) {
+        setIsPressed(false);
+      }
+    }, 2000);
+  }, [isPressed]);
 
   return (
     <View style={styles.cardContainer}>
@@ -36,8 +45,14 @@ const CardEinfo = ({
         </Pressable>
         <Text style={styles.titleText}>{title}</Text>
         {showButton ? (
-          <Pressable onPress={onPressAction} style={styles.buttonCont}>
-            <View style={styles.newButton}>
+          <Pressable
+            onPress={() => {
+              setIsPressed(true);
+              onPressAction();
+            }}
+            style={styles.buttonCont}
+          >
+            <View style={styles.newButton(isPressed)}>
               {buttonIcon && (
                 <Entypo name={buttonIcon} size={24} color={colors.white} />
               )}
@@ -86,15 +101,15 @@ const styles = StyleSheet.create({
   buttonCont: {
     marginLeft: "auto",
   },
-  newButton: {
+  newButton: (press) => ({
     borderRadius: 8,
-    backgroundColor: colors.yellow,
+    backgroundColor: press ? colors.gray : colors.yellow,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: 8,
     width: 80,
-  },
+  }),
   buttonText: {
     color: colors.white,
     fontFamily: "Poppins-Regular",

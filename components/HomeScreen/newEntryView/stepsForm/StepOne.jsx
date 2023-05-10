@@ -21,7 +21,6 @@ const StepOne = ({ formData, onComplete }) => {
   const [tel, setTel] = useState("");
   const [depar, setDepar] = useState("");
   const [munic, setMunic] = useState("");
-  const [loader, setLoader] = useState(false);
 
   const showToast = (smg, type) => {
     Toast.show({
@@ -47,7 +46,6 @@ const StepOne = ({ formData, onComplete }) => {
       showToast("Por favor, rellene todos los campos", "error");
       return;
     }
-    setLoader(true);
     onComplete({
       stepOneData: {
         identificacion: id,
@@ -71,14 +69,6 @@ const StepOne = ({ formData, onComplete }) => {
     }
     // }
   }, [id]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        setLoader(false);
-      };
-    }, [])
-  );
 
   const getMunicipio = (idMun) => {
     let addDep = "";
@@ -176,19 +166,9 @@ const StepOne = ({ formData, onComplete }) => {
       <GLButton
         onPressAction={handlePress}
         type="default"
-        placeholder={!loader ? "Siguiente" : <LoaderItemSwitch />}
+        placeholder={"Siguiente"}
         width={widthPercentageToPx(70)}
       />
-      {/* {!loader ? (
-        <GLButton
-          onPressAction={handlePress}
-          type="default"
-          placeholder={"Siguiente"}
-          width={widthPercentageToPx(70)}
-        />
-      ) : (
-        <LoaderItemSwitch />
-      )} */}
     </View>
   );
 };

@@ -2,7 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { colors } from "../../../utils";
+import { colors, widthPercentageToPx } from "../../../utils";
 import CardElement from "../newsView/components/CardElement";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -11,10 +11,12 @@ import {
   fetchPost,
 } from "../../../utils/functions";
 import LoaderProgContext from "../../../context/loader/LoaderProgContext";
+import { Text } from "react-native";
+import LoaderItemSwitchDark from "../../common/loaders/LoaderItemSwitchDark";
 
 const ResumeCard = (props) => {
   const { setLoaderProg } = useContext(LoaderProgContext);
-
+  const initDesc = props.initDesc;
   const showToast = (smg, type) => {
     Toast.show({
       type: type, //"success", error
@@ -37,9 +39,11 @@ const ResumeCard = (props) => {
     }
 
     if (archDes) {
+      initDesc(false);
       showToast("Listo", "success");
       setLoaderProg(false);
     } else {
+      initDesc(false);
       showToast("No se genero un archivo", "error");
       setLoaderProg(false);
     }
@@ -47,27 +51,28 @@ const ResumeCard = (props) => {
 
   const dowHVida = async () => {
     setLoaderProg(true);
+    initDesc(props);
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel;
     const codEmp = infoLog.codEmp;
-    console.log("props", props);
     const info = `NitCliente=${codEmp}&Empresa=${empSel.toUpperCase()}&CodEmpleado=%&IdDocumento=${
       props.IdDocumento
     }`;
     const path = "usuario/getDownDoc.php";
-    console.log("info", info);
     const respApi = await fetchPost(path, info);
-    console.log("respApi", respApi);
+
     const { status, data } = respApi;
     if (status) {
       if (data.Correcto === 1) {
         dowArchivo(data);
       } else {
+        initDesc(false);
         showToast("Error en el servidor", "error");
         setLoaderProg(false);
       }
     } else {
+      initDesc(false);
       showToast("Error en el servidor", "error");
       setLoaderProg(false);
     }
@@ -76,22 +81,25 @@ const ResumeCard = (props) => {
     <View style={styles.cardContainer}>
       <View style={styles.leftContent}>
         <View style={styles.cardColumn}>
+          <CardElement head={"Nombre"} content={props.NombreDocumento} />
           {/* <CardElement head={"RAD."} content={props.RAD} /> */}
           {/* <CardElement head={"Identificacion"} content={props.Identificacion} /> */}
         </View>
         <View style={styles.cardColumn}>
-          <CardElement head={"Nombre"} content={props.NombreDocumento} />
+          {/* <CardElement head={"Nombre"} content={props.NombreDocumento} /> */}
           {/* <CardElement head={"Fecha"} content={props.fecha} /> */}
         </View>
       </View>
 
-      <View style={styles.rightContent}>
-        <Pressable onPress={() => dowHVida()}>
-          <View style={styles.actionButton("ghost")}>
-            <AntDesign name="download" size={18} color={colors.darkGray} />
-          </View>
-        </Pressable>
-      </View>
+      {typeof initDesc != "boolean" && (
+        <View style={styles.rightContent}>
+          <Pressable onPress={() => dowHVida()}>
+            <View style={styles.actionButton("ghost")}>
+              <AntDesign name="download" size={18} color={colors.darkGray} />
+            </View>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
@@ -130,4 +138,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 7,
   }),
+  loaderDes: {
+    flex: 1,
+    width: widthPercentageToPx(100),
+    // width: "100%",
+  },
 });

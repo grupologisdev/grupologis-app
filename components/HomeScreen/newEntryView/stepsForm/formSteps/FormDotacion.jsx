@@ -7,8 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { colors, heightPercentageToPx } from "../../../../../utils";
+import {
+  colors,
+  heightPercentageToPx,
+  widthPercentageToPx,
+} from "../../../../../utils";
 import { Ionicons } from "@expo/vector-icons";
+import { ScrollView } from "react-native";
 
 class FormDotacion extends Component {
   state = {
@@ -151,28 +156,33 @@ class FormDotacion extends Component {
                 />
               </TouchableOpacity>
               <View style={styles.selectContainer}>
-                {this.state.modalOptions.map((option) => (
-                  <TouchableOpacity
-                    key={option}
-                    style={styles.modalOptionBox}
-                    onPress={() => {
-                      // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                      this.setState(
-                        {
-                          [this.state.modalSelect]: option,
-                          modalVisible: false,
-                          modalOptions: [],
-                          modalSelect: "",
-                        },
-                        () => {
-                          this.handleSelection();
-                        }
-                      );
-                    }}
-                  >
-                    <Text style={styles.modalOption}>{option}</Text>
-                  </TouchableOpacity>
-                ))}
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                >
+                  {this.state.modalOptions.map((option) => (
+                    <TouchableOpacity
+                      key={option}
+                      style={styles.modalOptionBox}
+                      onPress={() => {
+                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                        this.setState(
+                          {
+                            [this.state.modalSelect]: option,
+                            modalVisible: false,
+                            modalOptions: [],
+                            modalSelect: "",
+                          },
+                          () => {
+                            this.handleSelection();
+                          }
+                        );
+                      }}
+                    >
+                      <Text style={styles.modalOption}>{option}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
               </View>
             </View>
           </Modal>
@@ -183,6 +193,9 @@ class FormDotacion extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    top: 20,
+  },
   boxForm: {
     marginBottom: 10,
   },
@@ -213,17 +226,24 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
   },
   modal: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    margin: 16,
-    borderRadius: 8,
-    padding: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "white",
+    width: widthPercentageToPx(100),
+    height: heightPercentageToPx(40),
+    borderRadius: 40,
+    padding: 30,
+    position: "absolute",
+    bottom: -20,
+    // flex: 1,
+    // backgroundColor: "#FFFFFF",
+    // margin: 16,
+    // borderRadius: 8,
+    // padding: 15,
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   closeButton: {
     position: "absolute",
-    top: 50,
+    top: 20,
     right: 30,
   },
   selectContainer: {

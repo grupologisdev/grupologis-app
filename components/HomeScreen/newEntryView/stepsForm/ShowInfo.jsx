@@ -2,89 +2,122 @@ import { StyleSheet, Text, View } from "react-native";
 import StatusLine from "../../../common/StatusLine";
 import { colors, getFontStyles } from "../../../../utils";
 import InfoClaim from "../../../../assets/images/components/infoModal/InfoClaim";
+import SvgCapacitations from "../../../../assets/images/home/downloadView/SvgCapacitations";
+import SvgInfoCapacitations from "../../../../assets/images/components/infoModal/InfoCapacitation";
 
 const ShowInfo = ({ modul, info }) => {
+  const infoSvg = { height: 97, width: 97 };
   return (
     <View>
       {modul == "NovIngreso" ? (
-        <View>
+        <View style={styles.containerResume}>
           {/* <Text>{JSON.stringify(info)}</Text> */}
-          <Text>Identificacion</Text>
-          <Text>{info.cod_emp.trim()}</Text>
+          <View style={styles.boxResume}>
+            <View style={styles.resume}>
+              <Text style={styles.textHead}>Identificacion</Text>
+              <Text style={styles.textContent}>{info.cod_emp.trim()}</Text>
 
-          <Text>Apellidos</Text>
-          <Text>
-            {info.ap1_emp.trim()} {info.ap2_emp.trim()}
-          </Text>
+              <Text style={styles.textHead}>Apellidos</Text>
+              <Text style={styles.textContent}>
+                {info.ap1_emp.trim()} {info.ap2_emp.trim()}
+              </Text>
+              <Text style={styles.textHead}>Correo</Text>
+              <Text style={styles.textContent}>{info.e_mail.trim()}</Text>
+            </View>
 
-          <Text>Nombre</Text>
-          <Text>
-            {info.nom1_emp.trim()} {info.nom2_emp.trim()}
-          </Text>
+            <View style={styles.resume}>
+              <Text style={styles.textHead}>Rad.</Text>
+              <Text style={styles.textContent}>{info.ID_oi}</Text>
 
-          <Text>Celular</Text>
-          <Text>{info.cel_emp.trim()}</Text>
+              <Text style={styles.textHead}>Nombre</Text>
+              <Text style={styles.textContent}>
+                {info.nom1_emp.trim()} {info.nom2_emp.trim()}
+              </Text>
 
-          <Text>Correo</Text>
-          <Text>{info.e_mail.trim()}</Text>
+              <Text style={styles.textHead}>Celular</Text>
+              <Text style={styles.textContent}>{info.cel_emp.trim()}</Text>
+            </View>
+          </View>
 
-          <Text>Tipo Novedad</Text>
-          <Text>{info.tip_nov.trim()}</Text>
+          <View style={styles.boxResume}>
+            <View style={styles.resume}>
+              <Text style={styles.textHead}>Fecha Ingreso</Text>
+              <Text style={styles.textContent}>{info.fecha_ing.trim()}</Text>
 
-          <Text>Estado</Text>
-          <Text>{info.estado.trim()}</Text>
+              <Text style={styles.textHead}>Fecha Realizada</Text>
+              <Text style={styles.textContent}>{info.fecha_oi.trim()}</Text>
 
-          <Text>Fecha Ingreso</Text>
-          <Text>{info.fecha_ing.trim()}</Text>
+              <Text style={styles.textHead}>Estado</Text>
+              <Text style={styles.textContent}>{info.estado.trim()}</Text>
 
-          <Text>Fecha Egreso</Text>
-          <Text>{info.fecha_egr.trim()}</Text>
+              <Text style={styles.textHead}>Tipo trabajo</Text>
+              <Text style={styles.textContent}>{info.tip_tra.trim()}</Text>
 
-          <Text>Empresa</Text>
-          <Text>{info.empresa_grupo.trim()}</Text>
+              <Text style={styles.textHead}>Valor Auxilio/Bonif...</Text>
+              <Text style={styles.textContent}>{parseInt(info.nov_val)}</Text>
+            </View>
+            <View style={styles.resume}>
+              <Text style={styles.textHead}>Fecha Egreso</Text>
+              <Text style={styles.textContent}>{info.fecha_egr.trim()}</Text>
 
-          <Text>Fecha Realizada</Text>
-          <Text>{info.fecha_oi.trim()}</Text>
+              <Text style={styles.textHead}>Tipo Novedad</Text>
+              <Text style={styles.textContent}>{info.tip_nov.trim()}</Text>
 
-          <Text>Convocatoria</Text>
-          <Text>{info.cod_conv.trim()}</Text>
+              <Text style={styles.textHead}>Salario</Text>
+              <Text style={styles.textContent}>
+                {info.tip_sal.trim()} {parseInt(info.sal_bas.trim())}
+              </Text>
 
-          <Text>Cliente</Text>
-          <Text>{info.cod_cli.trim()}</Text>
+              <Text style={styles.textHead}>Pago 31</Text>
+              <Text style={styles.textContent}>
+                {info.pag_d31 == 0 ? "No" : "Si"}
+              </Text>
+            </View>
+          </View>
+          {info.dot_emp == 1 && (
+            <View style={styles.boxResume}>
+              <View style={styles.resume}>
+                <Text style={styles.textHead}>Talla camiseta</Text>
+                <Text style={styles.textContent}>{info.camisa_emp.trim()}</Text>
 
-          <Text>Salario</Text>
-          <Text>
-            {info.tip_sal.trim()} {parseInt(info.sal_bas.trim())}
-          </Text>
+                <Text style={styles.textHead}>Talla overol</Text>
+                <Text style={styles.textContent}>{info.overol_emp.trim()}</Text>
 
-          <Text>Tipo trabajo</Text>
-          <Text>{info.tip_tra.trim()}</Text>
+                <Text style={styles.textHead}>Talla guantes</Text>
+                <Text style={styles.textContent}>
+                  {info.guantes_emp.trim()}
+                </Text>
+              </View>
+              <View style={styles.resume}>
+                <Text style={styles.textHead}>Talla pantalon</Text>
+                <Text style={styles.textContent}>
+                  {info.pantalon_emp.trim()}
+                </Text>
 
-          {info.camisa_emp && (
-            <View>
-              <Text>Talla camiseta</Text>
-              <Text>{info.camisa_emp.trim()}</Text>
-
-              <Text>Talla overol</Text>
-              <Text>{info.overol_emp.trim()}</Text>
-
-              <Text>Talla guantes</Text>
-              <Text>{info.guantes_emp.trim()}</Text>
-
-              <Text>Talla pantalon</Text>
-              <Text>{info.pantalon_emp.trim()}</Text>
+                <Text style={styles.textHead}>Talla zapatos</Text>
+                <Text style={styles.textContent}>
+                  {info.zapatos_emp.trim()}
+                </Text>
+              </View>
             </View>
           )}
         </View>
       ) : (
         <View style={styles.infoBoxContainer}>
           <View style={styles.infoBoxImag}>
-            <InfoClaim />
+            {/* <InfoClaim /> */}
+            <SvgInfoCapacitations />
           </View>
-          <View>
-            {/* <Text>{JSON.stringify(info)}</Text> */}
-            <StatusLine status={info.Estado} />
-          </View>
+          {modul == "Quejas" ? (
+            <View>
+              {/* <Text>{JSON.stringify(info)}</Text> */}
+              <StatusLine status={info.Estado} />
+            </View>
+          ) : (
+            <Text style={styles.textStyle}>
+              {info.Estado == "Approve" ? "Aprobado" : info.Estado}
+            </Text>
+          )}
           <View style={styles.infoBox}>
             <View>
               <Text style={styles.textHead}>Año</Text>
@@ -104,18 +137,23 @@ const ShowInfo = ({ modul, info }) => {
           <Text style={styles.descrip}>{info.Comentario.trim()}</Text>
 
           {modul == "Capac" && (
-            <>
-              <Text>Personal</Text>
-              <Text>{info.Personal.trim()}</Text>
-              <Text>Tema</Text>
-              <Text>{info.Tema.trim()}</Text>
+            <View style={styles.infoBox}>
+              <View>
+                <Text style={styles.textHead}>Personal</Text>
+                <Text>{info.Personal.trim()}</Text>
+              </View>
+              <View>
+                <Text style={styles.textHead}>Tema</Text>
+                <Text>{info.Tema.trim()}</Text>
+              </View>
+
               {info.Tipo != null && (
-                <>
-                  <Text>Tipo</Text>
+                <View>
+                  <Text style={styles.textHead}>Tipo</Text>
                   <Text>{info.Tipo.trim()}</Text>
-                </>
+                </View>
               )}
-            </>
+            </View>
           )}
 
           {modul == "Quejas" && info.Respuesta.trim() != "" && (
@@ -135,6 +173,10 @@ export default ShowInfo;
 const styles = StyleSheet.create({
   infoBoxContainer: {
     marginBottom: 40,
+  },
+  containerResume: {
+    display: "flex",
+    flexDirection: "column",
   },
   infoBox: {
     display: "flex",
@@ -160,6 +202,28 @@ const styles = StyleSheet.create({
     ...getFontStyles(14, 0.5, 0.9),
   },
   infoBoxImag: {
+    // top: -10,
     alignItems: "center",
+  },
+  textContent: {
+    fontFamily: "Volks-Bold",
+    color: colors.darkGray,
+    ...getFontStyles(16, 0.8, 0.9),
+    marginBottom: 6,
+  },
+  boxResume: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: 5,
+  },
+  resume: {
+    flex: 1,
+    marginBottom: 20,
+  },
+  textStyle: {
+    textAlign: "center",
+    fontSize: 18,
+    color: colors.boldGray,
+    fontFamily: "Poppins-Bold",
   },
 });

@@ -1,12 +1,14 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { colors, getFontStyles } from "../../../utils";
+import { PixelRatio, Pressable, StyleSheet, Text, View } from "react-native";
+import { colors, getFontStyles, heightPercentageToPx } from "../../../utils";
+const pixelDensity = parseInt(PixelRatio.get());
+
 const EmployeeMcard = ({ title, desc, image, id, onRedirect }) => {
   return (
     <View style={styles.scrollStyle}>
       <View style={styles.containerCard}>
         <View style={styles.certificadoImage}>{image}</View>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title(pixelDensity <= 1 ? 12 : 15)}>{title}</Text>
         <Text style={styles.description}>{desc}</Text>
         <Pressable onPress={() => onRedirect(id)}>
           <View style={styles.downloadButton}>
@@ -44,15 +46,19 @@ const styles = StyleSheet.create({
     height: 75,
     width: 75,
   },
-  title: {
-    ...getFontStyles(15, 0.9, 1.1),
+  containerCard: {
+    height:
+      pixelDensity <= 1 ? heightPercentageToPx(28) : heightPercentageToPx(25),
+  },
+  title: (tmn) => ({
+    ...getFontStyles(tmn, 0.9, 1.1),
     fontFamily: "Poppins-Bold",
     marginBottom: 5,
-  },
+  }),
   description: {
     fontFamily: "Volks-Serial-Light",
     color: colors.descriptionColors,
-    ...getFontStyles(12, 0.9, 1.2),
+    ...getFontStyles(12, 0.9, 0.9),
     flex: 1,
   },
   downloadButton: {

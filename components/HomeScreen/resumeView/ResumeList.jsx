@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import { Text } from "react-native";
 import LoaderItemSwitch from "../../common/loaders/LoaderItemSwitch";
 import ReplyMessage from "../../common/messages/ReplyMessage";
+import LoaderItemSwitchDark from "../../common/loaders/LoaderItemSwitchDark";
 
 const showToast = (smg, type) => {
   Toast.show({
@@ -33,7 +34,8 @@ const ResumeList = (props) => {
   const [codEmpleado, setCodEmpleado] = useState(null);
   const [prevIdenHoja, setPrevIdenHoja] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [showInfDesc, setShowInfDesc] = useState(false);
+  const [infoDesc, setInfoDesc] = useState({});
   let buscar = true;
 
   useEffect(() => {
@@ -89,18 +91,35 @@ const ResumeList = (props) => {
     }
   }, [idenHoja, prevIdenHoja, codEmpleado, loading]);
 
+  const blockDownloads = (itemDesc) => {
+    console.log("itemDesc2", itemDesc);
+    console.log("itemDesc2", typeof itemDesc);
+    if (typeof itemDesc == "boolean") {
+      setShowInfDesc(false);
+    } else {
+      setInfoDesc(itemDesc);
+      setShowInfDesc(true);
+    }
+  };
+
   return (
     <View style={styles.newsListContainer}>
       <View>
         {/* {loading ? <LoaderItemSwitch /> : null} */}
-        {!loading ? (
-          resumeList.length > 0 ? (
-            resumeList.map((n4, index4) => <ResumeCard key={index4} {...n4} />)
+        {!showInfDesc ? (
+          !loading ? (
+            resumeList.length > 0 ? (
+              resumeList.map((n4, index4) => (
+                <ResumeCard key={index4} {...n4} initDesc={blockDownloads} />
+              ))
+            ) : (
+              <ReplyMessage message="SinRes" />
+            )
           ) : (
-            <ReplyMessage message="SinRes" />
+            <LoaderItemSwitchDark />
           )
         ) : (
-          <LoaderItemSwitch />
+          <ResumeCard {...infoDesc} initDesc={true} />
         )}
       </View>
     </View>
