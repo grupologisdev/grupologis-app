@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import UserForm from "../components/HomeScreen/profileView/UserForm";
 import UserInfo from "../components/HomeScreen/profileView/UserInfo";
 import Layout from "../components/layout/Layout";
 import authContext from "../context/auth/authContext";
-import { heightPercentageToPx, widthPercentageToPx } from "../utils";
+import { colors, heightPercentageToPx, widthPercentageToPx } from "../utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchPost } from "../utils/functions";
 import Toast from "react-native-toast-message";
@@ -114,7 +114,9 @@ const UserView = (props) => {
             />
           </>
         ) : (
-          <LoadFullScreen />
+          <View style={styles.infoUserView}>
+            <LoadFullScreen />
+          </View>
         )}
       </ScrollView>
     </Layout>
@@ -128,5 +130,8 @@ const styles = StyleSheet.create({
     height: heightPercentageToPx(100),
     width: widthPercentageToPx(100),
     marginTop: heightPercentageToPx(2),
+  },
+  infoUserView: {
+    height: heightPercentageToPx(70),
   },
 });

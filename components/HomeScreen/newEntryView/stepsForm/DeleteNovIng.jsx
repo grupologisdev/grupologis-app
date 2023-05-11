@@ -1,11 +1,12 @@
-import { Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { View } from "react-native-animatable";
 import GLButton from "../../../common/buttons/GLButton";
 import LoaderItemSwitch from "../../../common/loaders/LoaderItemSwitch";
 import { getSer } from "../../../../utils/axiosInstance";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
-import { widthPercentageToPx } from "../../../../utils";
+import { colors, getFontStyles, widthPercentageToPx } from "../../../../utils";
+import RemoveNovIng from "../../../../assets/images/components/infoModal/RemoveNovIng";
 
 const DeleteNovIng = (props) => {
   const { infoDel, showModal } = props;
@@ -43,19 +44,19 @@ const DeleteNovIng = (props) => {
   };
   return (
     <View>
-      <Text>Desea Eliminar este registro?</Text>
-
+      <View style={styles.infoBoxImag}>
+        <RemoveNovIng />
+      </View>
+      <Text style={styles.secondTitle}>
+        ¿Esta seguro que desea eliminar este registro?
+      </Text>
+      <Text style={styles.descrip}>
+        Si la eliminas no podra ser recuperada posterior mente
+      </Text>
       <GLButton
         onPressAction={() => deleteReg()}
         type="default"
         placeholder={!loader ? "Eliminar" : <LoaderItemSwitch />}
-        width={widthPercentageToPx(70)}
-      />
-
-      <GLButton
-        onPressAction={() => showModal(true)}
-        type="second"
-        placeholder={"Cancelar"}
         width={widthPercentageToPx(70)}
       />
     </View>
@@ -63,3 +64,23 @@ const DeleteNovIng = (props) => {
 };
 
 export default DeleteNovIng;
+
+const styles = StyleSheet.create({
+  infoBoxContainer: {
+    marginBottom: 40,
+  },
+  infoBoxImag: {
+    alignItems: "center",
+  },
+  secondTitle: {
+    fontFamily: "Poppins-Bold",
+    textAlign: "center",
+    ...getFontStyles(21, 0.5, 0.9),
+  },
+  descrip: {
+    fontFamily: "Volks-Serial-Light",
+    color: colors.descriptionColors,
+    ...getFontStyles(14, 1, 1.2),
+    textAlign: "center",
+  },
+});

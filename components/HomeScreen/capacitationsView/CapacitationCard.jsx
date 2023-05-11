@@ -57,13 +57,15 @@ const CapacitationsCard = (props) => {
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
               >
-                <ShowInfo modul="Capac" info={props} />
-                <GLButton
-                  type={"second"}
-                  placeholder="Cerrar"
-                  width={widthPercentageToPx(70)}
-                  onPressAction={() => closeModal()}
-                />
+                <View style={{ paddingBottom: 80 }}>
+                  <ShowInfo modul="Capac" info={props} />
+                  <GLButton
+                    type={"second"}
+                    placeholder="Cerrar"
+                    width={widthPercentageToPx(70)}
+                    onPressAction={() => closeModal()}
+                  />
+                </View>
               </ScrollView>
             </View>
           </View>
@@ -109,19 +111,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modalContainerInfo: {
-    marginBottom: 50,
+    // marginBottom: 50,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   modal: {
+    top: 90,
     backgroundColor: "white",
     width: widthPercentageToPx(90),
     height: heightPercentageToPx(80),
     borderRadius: 20,
-    padding: 30,
+    // padding: 30,
+    // paddingTop: 10,
+    paddingHorizontal: 30,
     position: "absolute",
-    bottom: -20,
+    // bottom: -20,
   },
   closeButton: {
-    top: widthPercentageToPx(-4),
-    left: widthPercentageToPx(-4),
+    // top: widthPercentageToPx(-8),
+    // left: widthPercentageToPx(-5),
+    // top: 10,
+    height: 35,
+    marginVertical: 10,
   },
 });

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import {
   Image,
+  PixelRatio,
   Platform,
   Pressable,
   StyleSheet,
@@ -15,6 +16,7 @@ import {
   images,
   widthPercentageToPx,
 } from "../utils";
+const pixelDensity = parseInt(PixelRatio.get());
 
 const LoginScreen = ({ navigation }) => {
   const { setRole } = useContext(authContext);

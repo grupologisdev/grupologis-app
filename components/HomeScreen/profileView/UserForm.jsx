@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: "Poppins-Regular",
     // marginLeft: 10,
+    paddingHorizontal: 20,
     ...getFontStyles(14, 0.5, 0.9),
   },
   formInputContainer: {

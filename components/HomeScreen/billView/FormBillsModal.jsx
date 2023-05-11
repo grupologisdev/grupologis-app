@@ -1,4 +1,4 @@
-import { Entypo, Feather } from "@expo/vector-icons";
+import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import moment from "moment";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -98,7 +98,7 @@ const FormBillsModal = ({ closeModal, onConfirm }) => {
             <Text style={styles.selectorText}>
               {hasChangedYear ? values.year : "Seleccione año"}
             </Text>
-            <Entypo name="chevron-down" size={20} color={colors.boldGray} />
+            <Ionicons name="calendar" size={20} color={colors.boldGray} />
           </View>
         </Pressable>
 
@@ -120,7 +120,7 @@ const FormBillsModal = ({ closeModal, onConfirm }) => {
                 ? validDates().validMonths[period.start.get("M")]
                 : "Seleccione mes / periodo"}
             </Text>
-            <Entypo name="chevron-down" size={20} color={colors.boldGray} />
+            <Ionicons name="calendar" size={20} color={colors.boldGray} />
           </View>
         </Pressable>
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     transform: [{ translateY: 20 }],
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(83),
+    height: heightPercentageToPx(70),
   },
   goBackButton: {
     position: "relative",

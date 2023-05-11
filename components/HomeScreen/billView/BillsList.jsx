@@ -18,7 +18,7 @@ const BillsList = (props) => {
 
   return (
     <View style={styles.newsListContainer}>
-      <View>
+      <View style={{ marginBottom: 60 }}>
         {billsList.length > 0 ? (
           billsList.map((n3, index3) => <BillsCard key={index3} {...n3} />)
         ) : (

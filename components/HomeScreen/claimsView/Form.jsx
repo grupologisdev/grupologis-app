@@ -15,6 +15,7 @@ import {
 } from "../../../utils";
 import GLButton from "../../common/buttons/GLButton";
 import FormTitle from "../../common/form/FormTitle";
+import Toast from "react-native-toast-message";
 
 const Form = ({ closeModal, onConfirm }) => {
   const [infoForm, setInfoForm] = useState({
@@ -22,9 +23,26 @@ const Form = ({ closeModal, onConfirm }) => {
     description: "",
   });
 
+  const showToast = (smg, type) => {
+    Toast.show({
+      type: type, //"success", error
+      text1: smg,
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  };
+
   const handlePress = () => {
     // cerrar el teclado
     Keyboard.dismiss();
+  };
+
+  const validarInfo = () => {
+    if (infoForm.asunto == "" || infoForm.description == "") {
+      showToast("Seleccione todos los campos", "error");
+    } else {
+      onConfirm(infoForm);
+    }
   };
 
   return (
@@ -61,7 +79,7 @@ const Form = ({ closeModal, onConfirm }) => {
             }
           ></TextInput>
           <GLButton
-            onPressAction={() => onConfirm(infoForm)}
+            onPressAction={() => validarInfo()}
             type="default"
             placeholder={"Enviar"}
             width={widthPercentageToPx(70)}
@@ -76,7 +94,7 @@ export default Form;
 
 const styles = StyleSheet.create({
   modalForm: {
-    top: widthPercentageToPx(25),
+    top: widthPercentageToPx(18),
     backgroundColor: colors.white,
     borderRadius: 10,
     paddingVertical: 10,

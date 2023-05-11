@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -52,13 +53,18 @@ const ClaimCard = (props) => {
                 />
               </TouchableOpacity>
               <View style={styles.modalContainer}>
-                <ShowInfo modul="Quejas" info={props} />
-                <GLButton
-                  type={"second"}
-                  placeholder="Cerrar"
-                  width={widthPercentageToPx(70)}
-                  onPressAction={() => closeModal()}
-                />
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <ShowInfo modul="Quejas" info={props} />
+                  <GLButton
+                    type={"second"}
+                    placeholder="Cerrar"
+                    width={widthPercentageToPx(60)}
+                    onPressAction={() => closeModal()}
+                  />
+                </ScrollView>
               </View>
             </View>
           </View>
@@ -103,12 +109,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modal: {
+    top: 90,
     backgroundColor: "white",
     width: widthPercentageToPx(90),
     height: heightPercentageToPx(80),
     borderRadius: 10,
-    padding: 30,
+    // padding: 30,
+    paddingHorizontal: 30,
     position: "absolute",
-    bottom: -20,
+    // bottom: -20,
+  },
+  closeButton: {
+    // top: widthPercentageToPx(-7),
+    // left: widthPercentageToPx(-4),
+    height: 35,
+    marginVertical: 10,
+    // backgroundColor: colors.black,
   },
 });

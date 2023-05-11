@@ -1,4 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -99,11 +99,17 @@ const BillsCard = (props) => {
       </View>
 
       <View style={styles.rightContent}>
+        {/* descargar reporte factura  */}
         <Pressable onPress={() => downloadBill([props, 0])}>
           <View style={styles.actionButton("ghost")}>
-            <AntDesign name="download" size={18} color={colors.darkGray} />
+            <FontAwesome5
+              name="file-invoice"
+              size={18}
+              color={colors.darkGray}
+            />
           </View>
         </Pressable>
+        {/* descargar soporte  */}
         <Pressable onPress={() => downloadBill([props, 1])}>
           <View style={styles.actionButton("ghost")}>
             <AntDesign name="download" size={18} color={colors.darkGray} />

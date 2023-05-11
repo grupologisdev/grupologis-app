@@ -212,7 +212,9 @@ const BusinessE = ({ navigation }) => {
           </View>
         </View>
       ) : (
-        <LoadFullScreen />
+        <View style={styles.centLoad}>
+          <LoadFullScreen />
+        </View>
       )}
     </KeyboardAvoidingView>
   );
@@ -329,6 +331,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 30,
     width: 30,
+  },
+  centLoad: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

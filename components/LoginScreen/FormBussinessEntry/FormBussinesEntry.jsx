@@ -76,38 +76,43 @@ class FormuBussines extends Component {
                 />
               </TouchableOpacity>
               <View style={styles.selectContainer}>
-                {this.state.modalOptions.map((option) => (
-                  <TouchableOpacity
-                    key={option.value}
-                    style={
-                      option.value === null
-                        ? styles.selectOption
-                        : styles.modalOptionBox
-                    }
-                    onPress={() => {
-                      // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
-                      this.setState({
-                        [this.state.modalSelect]: option.value,
-                        modalVisible: false,
-                        modalOptions: [],
-                        optSelectLab: option.label,
-                      });
-                      this.props.onOptionSel(option.value);
-                    }}
-                  >
-                    <ScrollView>
-                      <Text
-                        style={
-                          option.value === null
-                            ? styles.modalOptionTtl
-                            : styles.modalOption
-                        }
-                      >
-                        {option.label}
-                      </Text>
-                    </ScrollView>
-                  </TouchableOpacity>
-                ))}
+                <ScrollView
+                  showsHorizontalScrollIndicator={false}
+                  showsVerticalScrollIndicator={false}
+                >
+                  {this.state.modalOptions.map((option) => (
+                    <TouchableOpacity
+                      key={option.value}
+                      style={
+                        option.value === null
+                          ? styles.selectOption
+                          : styles.modalOptionBox
+                      }
+                      onPress={() => {
+                        // Aquí actualizamos el estado del select correspondiente con la opción seleccionada
+                        this.setState({
+                          [this.state.modalSelect]: option.value,
+                          modalVisible: false,
+                          modalOptions: [],
+                          optSelectLab: option.label,
+                        });
+                        this.props.onOptionSel(option.value);
+                      }}
+                    >
+                      <ScrollView>
+                        <Text
+                          style={
+                            option.value === null
+                              ? styles.modalOptionTtl
+                              : styles.modalOption
+                          }
+                        >
+                          {option.label}
+                        </Text>
+                      </ScrollView>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
               </View>
             </View>
           </View>
@@ -119,17 +124,18 @@ class FormuBussines extends Component {
 
 const styles = StyleSheet.create({
   select: {
-    backgroundColor: "white",
+    backgroundColor: colors.inputBackground,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 8,
-
+    borderRadius: 15,
+    height: 50,
     marginTop: 20,
   },
   selectText: {
+    // paddingHorizontal: 20,
     fontSize: 16,
     fontFamily: "Volks-Serial-Medium",
     color: colors.placeholderColor,
@@ -137,7 +143,6 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     margin: 16,
-    borderRadius: 8,
     height: 20,
     alignItems: "center",
     justifyContent: "center",

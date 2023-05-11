@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { widthPercentageToPx } from "../../../utils";
+import { heightPercentageToPx, widthPercentageToPx } from "../../../utils";
 import ReplyMessage from "../../common/messages/ReplyMessage";
 import CapacitationsCard from "./CapacitationCard";
 

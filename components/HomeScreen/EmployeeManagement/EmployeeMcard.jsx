@@ -33,10 +33,10 @@ export default EmployeeMcard;
 
 const styles = StyleSheet.create({
   scrollStyle: {
-    width: 145,
+    width: 148,
     backgroundColor: colors.white,
     borderRadius: 17,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     paddingVertical: 20,
     alignItems: "flex-start",
     flexDirection: "column",
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   description: {
     fontFamily: "Volks-Serial-Light",
     color: colors.descriptionColors,
-    ...getFontStyles(12, 0.9, 0.9),
+    ...getFontStyles(12, 0.9, 1),
     flex: 1,
   },
   downloadButton: {

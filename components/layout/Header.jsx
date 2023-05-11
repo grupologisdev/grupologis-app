@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     transform: [{ translateY: 55 }],
     width: widthPercentageToPx(90.5),
-    height: heightPercentageToPx(90),
+    height: heightPercentageToPx(85),
     left: 21,
   },
 });

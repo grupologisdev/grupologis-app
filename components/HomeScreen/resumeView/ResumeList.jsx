@@ -116,7 +116,9 @@ const ResumeList = (props) => {
               <ReplyMessage message="SinRes" />
             )
           ) : (
-            <LoaderItemSwitchDark />
+            <View style={styles.loaderDes}>
+              <LoaderItemSwitchDark />
+            </View>
           )
         ) : (
           <ResumeCard {...infoDesc} initDesc={true} />
@@ -149,5 +151,10 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
     color: colors.mainBlue,
     ...getFontStyles(18, 0.5, 0.9),
+  },
+  loaderDes: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

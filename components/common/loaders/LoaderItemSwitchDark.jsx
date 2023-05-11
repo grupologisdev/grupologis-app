@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Animated } from "react-native";
+import {
+  colors,
+  heightPercentageToPx,
+  widthPercentageToPx,
+} from "../../../utils";
 
 const LoaderItemSwitchDark = () => {
   const [animation1] = useState(new Animated.Value(0));
@@ -79,6 +84,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    width: widthPercentageToPx(78),
+    height: heightPercentageToPx(6),
   },
   item: {
     width: 10,

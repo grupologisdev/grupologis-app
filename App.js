@@ -8,6 +8,7 @@ import {
   PermissionsAndroid,
   KeyboardAvoidingView,
   Platform,
+  View,
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";

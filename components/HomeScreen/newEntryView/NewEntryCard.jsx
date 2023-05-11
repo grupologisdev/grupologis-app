@@ -122,10 +122,23 @@ const NewEntryCard = (props) => {
                     </View>
                   </ScrollView>
                 ) : (
-                  <DeleteNovIng
-                    infoDel={infoDel}
-                    showModal={(c) => c && closeModal()}
-                  />
+                  <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    <View style={styles.infoShow}>
+                      <DeleteNovIng
+                        infoDel={infoDel}
+                        showModal={(c) => c && closeModal()}
+                      />
+                      <GLButton
+                        type={"second"}
+                        placeholder="Cancelar"
+                        width={widthPercentageToPx(70)}
+                        onPressAction={() => closeModal()}
+                      />
+                    </View>
+                  </ScrollView>
                 )}
               </View>
             </View>

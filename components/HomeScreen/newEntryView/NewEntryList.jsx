@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     width: widthPercentageToPx(90),
     height: "100%",
     marginTop: heightPercentageToPx(1),
+    marginBottom: 55,
   },
   titleContainer: {
     paddingVertical: 10,

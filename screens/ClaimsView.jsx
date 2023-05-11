@@ -60,6 +60,7 @@ const Claim = (props) => {
 
     const path = "usuario/getListadoQuejas.php";
     const respApi = await fetchPost(path, info);
+
     if (respApi.status) {
       const data = respApi.data;
 
@@ -228,8 +229,10 @@ const styles = StyleSheet.create({
   },
   loaderContainer: {
     marginTop: heightPercentageToPx(15),
-    display: "flex",
-    alignContent: "center",
+    // display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

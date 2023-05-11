@@ -50,21 +50,24 @@ const FormInicFin = ({ closeModal, onConfirm }) => {
             <Feather name="x" size={24} color={colors.purpleIcons} />
           </View>
         </Pressable>
-
-        <SpecialCalendar
-          placeholder={"Fecha inicio"}
-          value={new Date()}
-          onChange={(e) =>
-            setSelectedDates({ ...selectedDates, startDate: e.date })
-          }
-        />
-        <SpecialCalendar
-          placeholder={"Fecha fin"}
-          value={new Date()}
-          onChange={(e) =>
-            setSelectedDates({ ...selectedDates, endDate: e.date })
-          }
-        />
+        <View style={styles.infoForm}>
+          <SpecialCalendar
+            placeholder={"Fecha inicio"}
+            value={new Date()}
+            onChange={(e) =>
+              setSelectedDates({ ...selectedDates, startDate: e.date })
+            }
+          />
+        </View>
+        <View style={styles.infoForm}>
+          <SpecialCalendar
+            placeholder={"Fecha fin"}
+            value={new Date()}
+            onChange={(e) =>
+              setSelectedDates({ ...selectedDates, endDate: e.date })
+            }
+          />
+        </View>
         <GLButton
           onPressAction={() => validateFech()}
           type="default"
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     transform: [{ translateY: 50 }],
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(90),
+    height: heightPercentageToPx(72),
   },
   goBackButton: {
     position: "relative",
@@ -99,5 +102,8 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     marginBottom: 30,
+  },
+  infoForm: {
+    marginTop: 15,
   },
 });

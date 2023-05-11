@@ -1,5 +1,6 @@
 import {
   Image,
+  PixelRatio,
   Platform,
   Pressable,
   StyleSheet,
@@ -23,6 +24,7 @@ import { fetchPost, validatePhone } from "../../utils/functions";
 
 import CloseLogin from "../../assets/images/auth/svg/CloseLogin";
 import LoaderItemSwitch from "../common/loaders/LoaderItemSwitch";
+const pixelDensity = parseInt(PixelRatio.get());
 
 const BusinessEmployeeLogin = ({ navigation, route }) => {
   const { type } = route.params;
@@ -67,6 +69,7 @@ const BusinessEmployeeLogin = ({ navigation, route }) => {
             &contactApp=true`;
         const path = "usuario/saveUsuarioNew.php";
         const respApi = await fetchPost(path, body);
+        console.log("respApi", respApi);
         const { status, data } = respApi;
 
         if (status) {

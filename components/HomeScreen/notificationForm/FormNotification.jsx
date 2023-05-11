@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import {
@@ -80,27 +87,32 @@ const NotificationForm = ({ closeM }) => {
       <View style={styles.titlesContainer}>
         <Text style={styles.subtitle}>Notificaciones</Text>
       </View>
-      <View styles={styles.inputContainer}>
-        {!loader ? (
-          notificationInfo.length > 0 ? (
-            notificationInfo.map((e) => (
-              <NotCard
-                key={e.id}
-                descNot={e.descripcion}
-                titleNot={e.titulo}
-                id={e.id}
-                imageNot={e.icono}
-              />
-            ))
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <View styles={styles.inputContainer}>
+          {!loader ? (
+            notificationInfo.length > 0 ? (
+              notificationInfo.map((e) => (
+                <NotCard
+                  key={e.id}
+                  descNot={e.descripcion}
+                  titleNot={e.titulo}
+                  id={e.id}
+                  imageNot={e.icono}
+                />
+              ))
+            ) : (
+              <Text>Sin notificaciones</Text>
+            )
           ) : (
-            <Text>Sin notificaciones</Text>
-          )
-        ) : (
-          <View styles={styles.loaderItem}>
-            <LoaderItemSwitchDark />
-          </View>
-        )}
-      </View>
+            <View styles={styles.loaderItem}>
+              <LoaderItemSwitchDark />
+            </View>
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -116,7 +128,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     transform: [{ translateY: 52 }],
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(90),
+    height: heightPercentageToPx(70),
+    // marginBottom: 30,
   },
   goBackButton: {
     position: "relative",

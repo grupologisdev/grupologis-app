@@ -4,13 +4,16 @@ import { colors, getFontStyles } from "../../../../utils";
 import InfoClaim from "../../../../assets/images/components/infoModal/InfoClaim";
 import SvgCapacitations from "../../../../assets/images/home/downloadView/SvgCapacitations";
 import SvgInfoCapacitations from "../../../../assets/images/components/infoModal/InfoCapacitation";
+import InfoNovedadIng from "../../../../assets/images/components/infoModal/InfoNovedadIng";
 
 const ShowInfo = ({ modul, info }) => {
-  const infoSvg = { height: 97, width: 97 };
   return (
     <View>
       {modul == "NovIngreso" ? (
         <View style={styles.containerResume}>
+          <View style={styles.infoBoxImag}>
+            <InfoNovedadIng />
+          </View>
           {/* <Text>{JSON.stringify(info)}</Text> */}
           <View style={styles.boxResume}>
             <View style={styles.resume}>
@@ -105,8 +108,7 @@ const ShowInfo = ({ modul, info }) => {
       ) : (
         <View style={styles.infoBoxContainer}>
           <View style={styles.infoBoxImag}>
-            {/* <InfoClaim /> */}
-            <SvgInfoCapacitations />
+            {modul == "Quejas" ? <InfoClaim /> : <SvgInfoCapacitations />}
           </View>
           {modul == "Quejas" ? (
             <View>
@@ -121,15 +123,19 @@ const ShowInfo = ({ modul, info }) => {
           <View style={styles.infoBox}>
             <View>
               <Text style={styles.textHead}>Año</Text>
-              <Text>{info.Fecha.trim().split("/")[2]}</Text>
+              <Text style={styles.descrip}>
+                {info.Fecha.trim().split("/")[2]}
+              </Text>
             </View>
             <View>
               <Text style={styles.textHead}>Mes</Text>
-              <Text>{info.Fecha.trim().split("/")[1]}</Text>
+              <Text style={styles.descrip}>
+                {info.Fecha.trim().split("/")[1]}
+              </Text>
             </View>
             <View>
               <Text style={styles.textHead}>No. Radicado</Text>
-              <Text>{info.Documento.trim()}</Text>
+              <Text style={styles.descrip}>{info.Documento.trim()}</Text>
             </View>
           </View>
 
@@ -140,11 +146,11 @@ const ShowInfo = ({ modul, info }) => {
             <View style={styles.infoBox}>
               <View>
                 <Text style={styles.textHead}>Personal</Text>
-                <Text>{info.Personal.trim()}</Text>
+                <Text style={styles.descrip}>{info.Personal.trim()}</Text>
               </View>
               <View>
                 <Text style={styles.textHead}>Tema</Text>
-                <Text>{info.Tema.trim()}</Text>
+                <Text style={styles.descrip}>{info.Tema.trim()}</Text>
               </View>
 
               {info.Tipo != null && (
@@ -212,13 +218,14 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   boxResume: {
+    marginTop: 15,
     display: "flex",
     flexDirection: "row",
     marginLeft: 5,
   },
   resume: {
     flex: 1,
-    marginBottom: 20,
+    marginBottom: 5,
   },
   textStyle: {
     textAlign: "center",

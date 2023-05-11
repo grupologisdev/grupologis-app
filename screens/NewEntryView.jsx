@@ -246,8 +246,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loaderContainer: {
-    marginTop: heightPercentageToPx(15),
-    display: "flex",
-    alignContent: "center",
+    marginTop: heightPercentageToPx(5),
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -1,4 +1,4 @@
-import { RefreshControl, ScrollView, Text } from "react-native";
+import { RefreshControl, ScrollView, StyleSheet, Text } from "react-native";
 import Layout from "../components/layout/Layout";
 import React, { useState } from "react";
 import CardEinfo from "../components/HomeScreen/homeView/CardEinfo";
@@ -9,6 +9,8 @@ import { fetchPost } from "../utils/functions";
 import CapacitationsList from "../components/HomeScreen/capacitationsView/CapacitationsList";
 import { useFocusEffect } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { heightPercentageToPx } from "../utils";
+import { View } from "react-native-animatable";
 
 const Capacitations = (props) => {
   const { navigation } = props;
@@ -83,7 +85,9 @@ const Capacitations = (props) => {
         {!loader ? (
           <CapacitationsList listado={listCapac} />
         ) : (
-          <LoaderItemSwitchDark />
+          <View style={styles.loaderContainer}>
+            <LoaderItemSwitchDark />
+          </View>
         )}
       </ScrollView>
     </Layout>
@@ -91,3 +95,12 @@ const Capacitations = (props) => {
 };
 
 export default Capacitations;
+
+const styles = StyleSheet.create({
+  loaderContainer: {
+    marginTop: heightPercentageToPx(5),
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

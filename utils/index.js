@@ -153,14 +153,12 @@ export const employeeDownloadables = [
   {
     id: "laboralCertificate",
     title: "Certificado laboral",
-    description:
-      "Descargar tu certificado laboral sin necesidad de pedirlo a Grupologis",
+    description: "Descargar tu certificado laboral a un solo clic",
   },
   {
     id: "payrollFlyer",
     title: "Volante de nómina",
-    description:
-      "Descargar tu certificado laboral sin necesidad de pedirlo a Grupologis",
+    description: "Descarga tu volante de nómina desde la App",
   },
   {
     id: "laboralCertificate2",

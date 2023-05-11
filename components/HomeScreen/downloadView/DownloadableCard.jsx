@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  PixelRatio,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import {
   colors,
   getFontStyles,
@@ -17,6 +24,7 @@ import { Platform } from "react-native";
 import FormBillsModal from "../billView/FormBillsModal";
 import FormInicFin from "../newsView/components/FormInicFin";
 import LoaderProgContext from "../../../context/loader/LoaderProgContext";
+const pixelDensity = parseInt(PixelRatio.get());
 
 const DownloadableCard = ({ title, desc, image, id }) => {
   const [modal, setModal] = useState(false);
@@ -352,7 +360,7 @@ const DownloadableCard = ({ title, desc, image, id }) => {
     <View style={styles.scrollStyle}>
       <View>
         <View style={styles.imageSvg}>{image}</View>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title(pixelDensity <= 1 ? 12 : 15)}>{title}</Text>
         <Text style={styles.description}>{desc}</Text>
         <Pressable onPress={() => setShowForm(id)}>
           <View style={styles.downloadButton}>
@@ -396,7 +404,7 @@ const styles = StyleSheet.create({
     width: 145,
     backgroundColor: colors.white,
     borderRadius: 17,
-    paddingHorizontal: 18,
+    paddingHorizontal: 10,
     paddingVertical: 18,
     alignItems: "flex-start",
     flexDirection: "column",
@@ -409,11 +417,11 @@ const styles = StyleSheet.create({
   imageSvg: {
     marginBottom: 15,
   },
-  title: {
-    ...getFontStyles(15, 0.9, 1.1),
+  title: (tmn) => ({
+    ...getFontStyles(tmn, 0.9, 1.1),
     fontFamily: "Poppins-Bold",
     marginBottom: 5,
-  },
+  }),
   description: {
     fontFamily: "Volks-Serial-Light",
     color: colors.descriptionColors,
