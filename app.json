@@ -2,7 +2,7 @@
   "expo": {
     "name": "grupologis-app",
     "slug": "grupologis-app",
-    "version": "1.0.0",
+    "version": "1.6.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,14 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "deviceFamily": ["iphone", "ipad"],
       "infoPlist": {
+        "CFBundleIcons": {
+          "CFBundlePrimaryIcon": {
+            "CFBundleIconFiles": ["assets/icon-120"],
+            "CFBundleIconName": "AppIcon"
+          }
+        },
         "NSFileProviderServiceName": "com.myappglogis.fileprovider",
         "NSFileProtection": "CompleteUnlessOpen",
         "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
