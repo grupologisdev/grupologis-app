@@ -87,33 +87,35 @@ const NotificationForm = ({ closeM }) => {
       <View style={styles.titlesContainer}>
         <Text style={styles.subtitle}>Notificaciones</Text>
       </View>
-      <ScrollView
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-      >
-        <View styles={styles.inputContainer}>
-          {!loader ? (
-            notificationInfo.length > 0 ? (
-              notificationInfo.map((e) => (
-                <NotCard
-                  key={e.id}
-                  descNot={e.descripcion}
-                  titleNot={e.titulo}
-                  dateNot={e.fecha}
-                  id={e.id}
-                  imageNot={e.icono}
-                />
-              ))
+      <View style={styles.itemsContai}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+        >
+          <View styles={styles.inputContainer}>
+            {!loader ? (
+              notificationInfo.length > 0 ? (
+                notificationInfo.map((e) => (
+                  <NotCard
+                    key={e.id}
+                    descNot={e.descripcion}
+                    titleNot={e.titulo}
+                    dateNot={e.fecha}
+                    id={e.id}
+                    imageNot={e.icono}
+                  />
+                ))
+              ) : (
+                <Text>Sin notificaciones</Text>
+              )
             ) : (
-              <Text>Sin notificaciones</Text>
-            )
-          ) : (
-            <View styles={styles.loaderItem}>
-              <LoaderItemSwitchDark />
-            </View>
-          )}
-        </View>
-      </ScrollView>
+              <View styles={styles.loaderItem}>
+                <LoaderItemSwitchDark />
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     transform: [{ translateY: 52 }],
     width: widthPercentageToPx(90),
-    height: heightPercentageToPx(70),
+    height: heightPercentageToPx(50),
     // marginBottom: 30,
   },
   goBackButton: {
@@ -141,9 +143,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 30,
     width: 30,
+    marginLeft: 10,
   },
   titlesContainer: {
     paddingHorizontal: 30,
+    // marginBottom: 10,
   },
   welcomeText: {
     fontFamily: "Poppins-Bold",
@@ -208,5 +212,9 @@ const styles = StyleSheet.create({
   },
   loaderItem: {
     width: widthPercentageToPx(100),
+  },
+  itemsContai: {
+    width: widthPercentageToPx(90),
+    height: heightPercentageToPx(67),
   },
 });

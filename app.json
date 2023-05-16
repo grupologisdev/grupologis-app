@@ -24,7 +24,7 @@
       "icon": "./assets/icon.png",
       "buildNumber": "1.6.9",
       "bundleIdentifier": "mglio.com",
-      "supportsTablet": false,
+      "supportsTablet": true,
 
       "infoPlist": {
         "CFBundleIconName": "icon",

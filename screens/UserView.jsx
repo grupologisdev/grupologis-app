@@ -16,6 +16,15 @@ const UserView = (props) => {
   const { userData, updateUser } = useContext(authContext);
   const [dataUs, setDataUs] = useState({ ...userData });
   const [loaderComp, setLoaderComp] = useState(false);
+  const estadoCiv = [
+    "DESCONOCIDO",
+    "SOLTERO",
+    "CASADO",
+    "VIUDO",
+    "UNION LIBRE",
+    "RELIGIOSO",
+    "OTRO",
+  ];
 
   const getUserDataFromAsyncStorage = async () => {
     try {
@@ -65,6 +74,11 @@ const UserView = (props) => {
       let info;
       if (infoLog.type === "employee") {
         // es 1
+        if (dataUs.Id_Est_Civ == undefined) {
+          dataUs.Id_Est_Civ = estadoCiv
+            .indexOf(dataUs.Est_Civ.trim())
+            .toString();
+        }
         path = "usuario/getLoadEditar.php";
         info = `CodEmpleado=${dataUs.codEmp.trim()}&Direccion=${dataUs.dir_res.trim()}&Email=${dataUs.e_mail.trim()}`;
         info += `&Telefono=${dataUs.tel_res.trim()}&Celular=${dataUs.tel_cel.trim()}`;
@@ -77,7 +91,6 @@ const UserView = (props) => {
       }
 
       const respApi = await fetchPost(path, info);
-
       const { status, data } = respApi;
       if (status) {
         if (data == "Perfil actualizado correctamente") {

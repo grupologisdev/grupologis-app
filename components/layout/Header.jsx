@@ -162,14 +162,15 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     alignItems: "center",
-    top: 55,
+    top: heightPercentageToPx(10),
+    // bottom: 0,
     backgroundColor: colors.white,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
     transform: [{ translateY: 55 }],
     width: widthPercentageToPx(90.5),
-    height: heightPercentageToPx(85),
-    left: 21,
+    height: heightPercentageToPx(86),
+    left: 18,
   },
 });
