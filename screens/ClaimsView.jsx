@@ -119,7 +119,6 @@ const Claim = (props) => {
   };
 
   const closeAfterConfirm = async (infoPqr) => {
-    setLoaderProg(true);
     let infoLog = await AsyncStorage.getItem("logged");
     infoLog = JSON.parse(infoLog);
     const empSel = infoLog.empSel;

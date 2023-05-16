@@ -16,7 +16,6 @@ import {
 const pixelDensity = parseInt(PixelRatio.get());
 
 const MainCardInfo = ({ firstTitle, secondTitle, description }) => {
-  console.log(Platform.OS, pixelDensity);
   return (
     <View style={styles.cardContainer}>
       <View style={styles.infoContainer}>

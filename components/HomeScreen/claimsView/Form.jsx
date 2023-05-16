@@ -16,8 +16,11 @@ import {
 import GLButton from "../../common/buttons/GLButton";
 import FormTitle from "../../common/form/FormTitle";
 import Toast from "react-native-toast-message";
+import LoaderItemSwitch from "../../common/loaders/LoaderItemSwitch";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Form = ({ closeModal, onConfirm }) => {
+  const [loader, setLoader] = useState(false);
   const [infoForm, setInfoForm] = useState({
     asunto: "",
     description: "",
@@ -41,9 +44,18 @@ const Form = ({ closeModal, onConfirm }) => {
     if (infoForm.asunto == "" || infoForm.description == "") {
       showToast("Seleccione todos los campos", "error");
     } else {
+      setLoader(true);
       onConfirm(infoForm);
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        setLoader(false);
+      };
+    }, [])
+  );
 
   return (
     <View style={styles.modalForm}>
@@ -81,7 +93,7 @@ const Form = ({ closeModal, onConfirm }) => {
           <GLButton
             onPressAction={() => validarInfo()}
             type="default"
-            placeholder={"Enviar"}
+            placeholder={!loader ? "Enviar" : <LoaderItemSwitch />}
             width={widthPercentageToPx(70)}
           />
         </View>
