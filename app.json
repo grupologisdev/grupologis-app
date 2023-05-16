@@ -2,14 +2,17 @@
   "expo": {
     "name": "grupologis-app",
     "slug": "grupologis-app",
-    "version": "1.6.7",
+    "version": "1.6.9",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": ["./app.plugin.js"],
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff",
+      "width": "100%",
+      "height": "100%"
     },
     "assetBundlePatterns": ["**/*"],
     "permissions": [
@@ -18,18 +21,13 @@
       "MEDIA_LIBRARY"
     ],
     "ios": {
-      "supportsTablet": true,
-      "deviceFamily": ["iphone", "ipad"],
+      "icon": "./assets/icon.png",
+      "buildNumber": "1.6.9",
+      "bundleIdentifier": "mglio.com",
+      "supportsTablet": false,
+
       "infoPlist": {
-        "CFBundleIcons": {
-          "CFBundlePrimaryIcon": {
-            "CFBundleIconFiles": ["assets/icon-120"],
-            "CFBundleIconName": "AppIcon"
-          }
-        },
-        "NSFileProviderServiceName": "com.myappglogis.fileprovider",
-        "NSFileProtection": "CompleteUnlessOpen",
-        "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
+        "CFBundleIconName": "icon",
         "NSPhotoLibraryUsageDescription": "La aplicación necesita acceder a la biblioteca de medios para guardar los archivos descargados"
       }
     },
@@ -38,7 +36,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.glogis2023.grupologisapp"
+      "package": "mglio.com"
     },
     "web": {
       "favicon": "./assets/favicon.png"
