@@ -170,7 +170,7 @@ export const employeeDownloadables = [
     id: "laboralCertificate3",
     title: "Hoja de vida laboral",
     description:
-      "Descargar tu certificado laboral sin necesidad de pedirlo a Grupologis",
+      "Descargar tu hoja de vida sin necesidad de pedirlo a Grupologis",
   },
 ];
 export const businessDownloadables = [

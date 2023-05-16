@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import React, { useContext, useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import newsContext from "../../../context/news/newsContext";
 import {
   colors,
@@ -55,7 +55,12 @@ const FormNew = ({ closeModal }) => {
       </Pressable>
       <View style={{ height: heightPercentageToPx(75) }}>
         {formStep === 1 ? (
-          <SelectType continueWithForm={setFormStep} />
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          >
+            <SelectType continueWithForm={setFormStep} />
+          </ScrollView>
         ) : formStep === 2 ? (
           <NewInfoForm
             confirmInformation={handleConfirmForm}

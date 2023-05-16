@@ -99,6 +99,7 @@ const NotificationForm = ({ closeM }) => {
                   key={e.id}
                   descNot={e.descripcion}
                   titleNot={e.titulo}
+                  dateNot={e.fecha}
                   id={e.id}
                   imageNot={e.icono}
                 />

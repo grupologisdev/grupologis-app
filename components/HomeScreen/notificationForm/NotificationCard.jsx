@@ -6,7 +6,7 @@ import state2 from "../../../assets/images/components/notifications/state-2.png"
 import state3 from "../../../assets/images/components/notifications/state-3.png";
 import state4 from "../../../assets/images/components/notifications/state-4.png";
 
-const NotCard = ({ titleNot, descNot, imageNot }) => {
+const NotCard = ({ titleNot, descNot, imageNot, dateNot }) => {
   let srcImg;
   switch (imageNot) {
     case "state-1.jpg":
@@ -30,6 +30,7 @@ const NotCard = ({ titleNot, descNot, imageNot }) => {
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{titleNot}</Text>
         <Text style={styles.description}>{descNot}</Text>
+        <Text style={styles.description}>{dateNot}</Text>
       </View>
     </View>
   );

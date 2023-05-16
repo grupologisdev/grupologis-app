@@ -202,7 +202,7 @@ const Claim = (props) => {
             {showForm ? (
               <Form
                 closeModal={() => setModal(false)}
-                onConfirm={() => closeAfterConfirm}
+                onConfirm={closeAfterConfirm}
               />
             ) : (
               <ConfirmActivity
