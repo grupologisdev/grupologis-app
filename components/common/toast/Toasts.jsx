@@ -25,21 +25,21 @@ export const SuccessToast = (props) => {
 };
 
 export const ErrorToast = (props) => {
-  console.log("props ErrorToast", props);
+  console.log("error toast", props);
   return (
-    <Modal visible={props.isVisible} transparent={true} animationType="slide">
-      <View style={styles.toastContainer}>
-        <View style={styles.error}>
-          <View style={styles.boxToast}>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>{props.text1}</Text>
-            </View>
-
-            <ErrorIcon />
+    // <Modal animationType="slide" visible={props.isVisible} transparent={true}>
+    <View style={styles.toastContainer}>
+      <View style={styles.error}>
+        <View style={styles.boxToast}>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{props.text1}</Text>
           </View>
+
+          <ErrorIcon />
         </View>
       </View>
-    </Modal>
+    </View>
+    // </Modal>
   );
 };
 

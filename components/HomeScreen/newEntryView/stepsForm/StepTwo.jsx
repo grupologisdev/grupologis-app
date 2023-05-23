@@ -92,13 +92,16 @@ const StepTwo = ({ formData, onComplete, completed }) => {
     const tresDiasMs = 3 * 24 * 60 * 60 * 1000; // milisegundos en 3 días
     const nuevaFechaMs = hoy.getTime() + tresDiasMs;
 
+    let limiteFecha = new Date();
+    limiteFecha.setDate(hoy.getDate() + 3); // Obtener el límite de fecha mínimo permitido (hoy + 3 días)
+
     const { cargo, contrato, convenio, jornada, trabajador, jornadaPer } =
       infoForm;
     if (
       !laborOrden ||
       !dateIng ||
       !dateEgr ||
-      nuevaFechaMs > fechaIng.getTime() ||
+      !fechaIng >= limiteFecha ||
       contrato.label == "Tipo de contrato" ||
       cargo.label == "Cargo" ||
       convenio.label == "Convenio" ||
@@ -112,15 +115,16 @@ const StepTwo = ({ formData, onComplete, completed }) => {
     ) {
       showToast("Por favor, rellene todos los campos", "error");
     } else {
-      onComplete({
-        stepTwoData: {
-          select: infoForm,
-          laborOrden: laborOrden,
-          pago31: isDay31,
-          fecIngreso: dateIng.date,
-          fecEgreso: dateEgr.date,
-        },
-      });
+      showToast("else", "error");
+      // onComplete({
+      //   stepTwoData: {
+      //     select: infoForm,
+      //     laborOrden: laborOrden,
+      //     pago31: isDay31,
+      //     fecIngreso: dateIng.date,
+      //     fecEgreso: dateEgr.date,
+      //   },
+      // });
     }
   };
 
@@ -152,15 +156,14 @@ const StepTwo = ({ formData, onComplete, completed }) => {
         onValueChange={toggleSwitchDay}
         value={isDay31}
       />
-      <GLButton
-        onPressAction={handlePress}
-        type="default"
-        placeholder={"Siguiente"}
-        width={widthPercentageToPx(70)}
-      />
-
-      {/* modal  */}
-      {}
+      <View style={styles.btnAli}>
+        <GLButton
+          onPressAction={handlePress}
+          type="default"
+          placeholder={"Siguiente"}
+          width={widthPercentageToPx(70)}
+        />
+      </View>
     </View>
   );
 };
@@ -180,6 +183,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     marginBottom: 10,
+  },
+  btnAli: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   selectText: {
     fontSize: 16,
