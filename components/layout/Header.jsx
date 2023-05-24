@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Image, StyleSheet, View, Pressable, Text, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -62,6 +62,19 @@ const Header = ({}) => {
     }
   };
 
+  // const handleProfileChange = async () => {
+  //   try {
+  //     const userDataJSON = await AsyncStorage.getItem("logged");
+  //     if (userDataJSON !== null) {
+  //       const userData = JSON.parse(userDataJSON);
+  //       setDataUs(userData);
+
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   useEffect(() => {
     getUserDataFromAsyncStorage();
   }, []);
@@ -70,6 +83,7 @@ const Header = ({}) => {
     const unsubscribe = navigation.addListener("state", (e) => {
       // La URL ha cambiado
       getNotification();
+      getUserDataFromAsyncStorage();
     });
 
     return unsubscribe;

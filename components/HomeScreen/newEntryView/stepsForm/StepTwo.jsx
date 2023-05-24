@@ -115,16 +115,15 @@ const StepTwo = ({ formData, onComplete, completed }) => {
     ) {
       showToast("Por favor, rellene todos los campos", "error");
     } else {
-      showToast("else", "error");
-      // onComplete({
-      //   stepTwoData: {
-      //     select: infoForm,
-      //     laborOrden: laborOrden,
-      //     pago31: isDay31,
-      //     fecIngreso: dateIng.date,
-      //     fecEgreso: dateEgr.date,
-      //   },
-      // });
+      onComplete({
+        stepTwoData: {
+          select: infoForm,
+          laborOrden: laborOrden,
+          pago31: isDay31,
+          fecIngreso: dateIng.date,
+          fecEgreso: dateEgr.date,
+        },
+      });
     }
   };
 
